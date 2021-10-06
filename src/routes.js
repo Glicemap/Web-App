@@ -60,7 +60,7 @@ const routes = [
     {
         path: '*',
         layout: AdminLayout,
-        guard: AuthGuard,
+        //guard: AuthGuard,
         routes: [
             {
                 exact: true,
