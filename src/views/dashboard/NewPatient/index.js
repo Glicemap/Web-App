@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Button } from 'react-bootstrap';
 
 const SamplePage = () => {
     return (
@@ -9,11 +9,11 @@ const SamplePage = () => {
                     <Card>
                         <Card.Body>
                             <p class="new-patient-text">
-                                Para se vincular a um novo paciente, informe-o seu código individual:
+                                Para se vincular a um novo paciente, informe-o seu código individual (clique no código para gerar um novo):
                             </p>
-                            <p class="new-patient-code">
+                            <Button variant="primary" className="new-patient-code">
                                 7A5b6T
-                            </p>
+                            </Button>
                             <p class="new-patient-text">
                                 O paciente deve inserir este código na tela "Meu Médico" da seção "Configurações" do aplicativo para que o vínculo seja realizado.
                             </p>

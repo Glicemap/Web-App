@@ -946,9 +946,10 @@ p.text-muted {
 .new-patient-code {
     font-size: 18pt;
     font-weight: 800;
-    margin: auto;
+    margin: auto 45%;
     width: 120px;
     text-align: center;
     background-color: #bfd7ed40;
     color: $primary-color;
+    align-items: center;
 }
