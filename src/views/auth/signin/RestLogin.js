@@ -22,8 +22,8 @@ const RestLogin = ({ className, ...rest }) => {
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    email: Yup.string().email('Insira um e-mail válido').max(255).required('E-mail é um campo obrigatório'),
+                    password: Yup.string().max(255).required('Senha é um campo obrigatório')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -72,7 +72,7 @@ const RestLogin = ({ className, ...rest }) => {
                                 className="form-control"
                                 error={touched.email && errors.email}
                                 label="Email Address"
-                                placeholder="Email Address"
+                                placeholder="Endereço de E-mail"
                                 name="email"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
@@ -86,7 +86,7 @@ const RestLogin = ({ className, ...rest }) => {
                                 className="form-control"
                                 error={touched.password && errors.password}
                                 label="Password"
-                                placeholder="Password"
+                                placeholder="Senha"
                                 name="password"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
@@ -105,7 +105,7 @@ const RestLogin = ({ className, ...rest }) => {
                         <div className="custom-control custom-checkbox  text-left mb-4 mt-2">
                             <input type="checkbox" className="custom-control-input" id="customCheck1" />
                             <label className="custom-control-label" htmlFor="customCheck1">
-                                Save credentials.
+                                Salvar credenciais.
                             </label>
                         </div>
 
@@ -119,7 +119,7 @@ const RestLogin = ({ className, ...rest }) => {
                                     type="submit"
                                     variant="primary"
                                 >
-                                    Sign IN
+                                    Entrar
                                 </Button>
                             </Col>
                         </Row>

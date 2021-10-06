@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 import RestRegister from './RestRegister';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 
+import logo from '../../../assets/images/logo.svg';
+
 const SignUp1 = () => {
     return (
         <React.Fragment>
@@ -21,33 +23,19 @@ const SignUp1 = () => {
                         <Row className="align-items-center">
                             <Col>
                                 <Card.Body className="text-center">
-                                    <h4 className="mb-4">React Datta Able</h4>
+                                    <img src={logo} className='b-title' alt="GLICEMAP"></img>
 
-                                    <div className="mb-4">
+                                    <div className="mb-4" style={{"margin-top": "20px"}}>
                                         <i className="feather icon-user-plus auth-icon" />
                                     </div>
 
                                     <RestRegister />
 
                                     <p className="mb-2">
-                                        Already have an account?{' '}
+                                        Já tem um conta?{' '}
                                         <NavLink to="/auth/signin" className="f-w-400">
                                             Login
                                         </NavLink>
-                                    </p>
-
-                                    <br />
-
-                                    <p className="mb-0 text-muted">
-                                        &copy;{' '}
-                                        <a target="_blank" href="https://codedthemes.com/" rel="noreferrer">
-                                            CodedThemes
-                                        </a>
-                                        -{' '}
-                                        <a target="_blank" href="https://appseed.us" rel="noreferrer">
-                                            AppSeed
-                                        </a>
-                                        .
                                     </p>
                                 </Card.Body>
                             </Col>

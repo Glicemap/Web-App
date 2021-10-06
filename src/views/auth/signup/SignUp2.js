@@ -23,25 +23,25 @@ const SignUp1 = () => {
                                     <div className="mb-4">
                                         <i className="feather icon-user-plus auth-icon" />
                                     </div>
-                                    <h3 className="mb-4">Sign up</h3>
+                                    <h3 className="mb-4">Registro</h3>
                                     <div className="input-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Username" />
+                                        <input type="text" className="form-control" placeholder="Nome" />
                                     </div>
                                     <div className="input-group mb-3">
-                                        <input type="email" className="form-control" placeholder="Email address" />
+                                        <input type="email" className="form-control" placeholder="Endereço de E-mail" />
+                                    </div>
+                                    <div className="input-group mb-3">
+                                        <input type="number" className="form-control" placeholder="CRM" />
                                     </div>
                                     <div className="input-group mb-4">
-                                        <input type="password" className="form-control" placeholder="Password" />
+                                        <input type="password" className="form-control" placeholder="Senha" />
                                     </div>
-                                    <div className="custom-control custom-checkbox  text-left mb-4 mt-2">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" defaultChecked={false} />
-                                        <label className="custom-control-label" htmlFor="customCheck1">
-                                            Send me the <Link to="#"> Newsletter</Link> weekly.
-                                        </label>
+                                    <div className="input-group mb-4">
+                                        <input type="password" className="form-control" placeholder="Confirme sua senha" />
                                     </div>
-                                    <button className="btn btn-primary mb-4">Sign up</button>
+                                    <button className="btn btn-primary mb-4">Registrar</button>
                                     <p className="mb-2">
-                                        Already have an account?{' '}
+                                        Já tem um conta?{' '}
                                         <NavLink to="/auth/signin-2" className="f-w-400">
                                             Login
                                         </NavLink>

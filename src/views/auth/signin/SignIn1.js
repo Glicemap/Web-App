@@ -6,6 +6,8 @@ import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 
 import RestLogin from './RestLogin';
 
+import logo from '../../../assets/images/logo.svg';
+
 const Signin1 = () => {
     return (
         <React.Fragment>
@@ -20,34 +22,22 @@ const Signin1 = () => {
                     </div>
                     <Card className="borderless text-center">
                         <Card.Body>
-                            <h4 className="mb-4">React Datta Able</h4>
+                            <img src={logo} className='b-title' alt="GLICEMAP"></img>
 
-                            <div className="mb-4">
+                            <div className="mb-4" style={{"margin-top": "20px"}}>
                                 <i className="feather icon-unlock auth-icon" />
                             </div>
 
                             <RestLogin />
 
                             <p className="mb-0 text-muted">
-                                Don’t have an account?{' '}
+                                Não tem uma conta?{' '}
                                 <NavLink to="/auth/signup" className="f-w-400">
-                                    Sign UP
+                                    Registre-se
                                 </NavLink>
                             </p>
 
                             <br />
-
-                            <p className="mb-0 text-muted">
-                                &copy;{' '}
-                                <a target="_blank" href="https://codedthemes.com/" rel="noreferrer">
-                                    CodedThemes
-                                </a>
-                                -{' '}
-                                <a target="_blank" href="https://appseed.us" rel="noreferrer">
-                                    AppSeed
-                                </a>
-                                .
-                            </p>
                         </Card.Body>
                     </Card>
                 </div>

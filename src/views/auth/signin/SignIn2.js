@@ -25,15 +25,15 @@ const Signin1 = () => {
                             </div>
                             <RestLogin />
                             <p className="mb-2 text-muted">
-                                Forgot password?
+                                Esqueceu a senha?{' '}
                                 <NavLink to="/auth/reset-password-1" className="f-w-400">
-                                    Reset
+                                    Recuperar
                                 </NavLink>
                             </p>
                             <p className="mb-0 text-muted">
-                                Don’t have an account?
+                                Não tem uma conta?{' '}
                                 <NavLink to="/auth/signup-2" className="f-w-400">
-                                    Signup
+                                    Registre-se
                                 </NavLink>
                             </p>
                         </Card.Body>
