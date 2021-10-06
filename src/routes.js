@@ -37,11 +37,13 @@ export const renderRoutes = (routes = []) => (
 const routes = [
     {
         exact: true,
+        guard: GuestGuard,
         path: '/auth/signin',
         component: lazy(() => import('./views/auth/signin/SignIn1'))
     },
     {
         exact: true,
+        guard: GuestGuard,
         path: '/auth/signup',
         component: lazy(() => import('./views/auth/signup/SignUp1'))
     },
