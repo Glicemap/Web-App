@@ -67,6 +67,5 @@ stages:
               StartupCommand: 'npm run start'
               ScriptType: 'Inline Script'
               InlineScript:
-                npm cache clean --force
                 npm install --legacy-peer-deps
                 npm run build --if-present
