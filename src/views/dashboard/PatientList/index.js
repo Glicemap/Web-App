@@ -60,13 +60,13 @@ const DashDefault = () => {
                             <Table responsive>
                                 <tbody>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="mb-1">PACIENTE</h6>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="mb-1">FREQUÊNCIA DE MEDIÇÕES</h6>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="mb-1">% DE REGISTROS DE GLICEMIA ALVO</h6>
                                         </td>
                                     </tr>
@@ -77,18 +77,18 @@ const DashDefault = () => {
                             <Table responsive hover>
                                 <tbody>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Robert Fox</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-red f-10 m-r-15" />
                                                 Baixa
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">25%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -107,18 +107,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Darlene Robertson</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-green f-10 m-r-15" />
                                                 Alta
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">50%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -137,18 +137,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Theresa Webb</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-yellow f-10 m-r-15" />
                                                 Média
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">75%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -167,18 +167,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Kristin Watson</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-yellow f-10 m-r-15" />
                                                 Média
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">100%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -197,18 +197,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Cody Fisher</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-red f-10 m-r-15" />
                                                 Baixa
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">75%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -227,18 +227,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Jane Cooper</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-green f-10 m-r-15" />
                                                 Alta
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">50%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -257,18 +257,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Jerome Bell</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-green f-10 m-r-15" />
                                                 Alta
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">25%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -287,18 +287,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Jenny Wilson</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-red f-10 m-r-15" />
                                                 Baixa
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">50%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -317,18 +317,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Darrell Steward</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-yellow f-10 m-r-15" />
                                                 Média
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">75%</p>
                                                 </td>
                                                 <td className="col-xl-12">
@@ -347,18 +347,18 @@ const DashDefault = () => {
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <a href="/patient-list/patient" as="h6" className="mb-1">Savannah Nguyen</a>
                                         </td>
-                                        <td class="col-xl-4">
+                                        <td className="col-xl-4">
                                             <h6 className="text-muted">
                                                 <i className="fa fa-circle text-c-green f-10 m-r-15" />
                                                 Alta
                                             </h6>
                                         </td>
-                                        <td class="col-xl-4 progress-registers">
+                                        <td className="col-xl-4 progress-registers">
                                             <tr>
-                                                <td class="percentage">
+                                                <td className="percentage">
                                                     <p className="m-b-0">100%</p>
                                                 </td>
                                                 <td className="col-xl-12">

@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from "react-dom";
-import { Catalogues } from "./mock";
+import { Catalogues } from './mock';
 import { Row, Col, Table, Card, Button } from 'react-bootstrap';
-
-const Checkbox = ({ id, type, handleClick, isChecked }) => {
-    return (
-      <input
-        id={id}
-        type={type}
-        onChange={handleClick}
-        checked={isChecked}
-      />
-    );
-};
+import Checkbox from '../../../components/NotifTable/checkbox';
 
 const Notifications = () => {
     const [isCheckAll, setIsCheckAll] = useState(false);
@@ -39,15 +28,13 @@ const Notifications = () => {
         }
     };
 
-    console.log(isCheck);
-
-    const catalog = list.map(({ id, text }) => {
+    const notifications = list.map(({ id, text }) => {
         return (
             <tr className="unread">
                 <td className="col-xl-1">
                     <Checkbox 
-                        type="checkbox"
-                        id={id}
+                        key={id}
+                        id="notif-checkbox"
                         handleClick={handleClick}
                         isChecked={isCheck.includes(id)}
                     />
@@ -88,7 +75,7 @@ const Notifications = () => {
                         <Col xl={12}>
                             <Table responsive>
                                 <tbody>
-                                    {catalog}
+                                    {notifications}
                                 </tbody>
                             </Table>
                         </Col>

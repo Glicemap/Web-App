@@ -55,7 +55,7 @@ const PatientPage = () => {
                     </Card>
                 </Col>
                 <Col md={6} xl={12}>
-                    <Button variant="secondary" style={{padding:"10px", float:"right"}}>Exportar para PDF <i class="feather icon-upload" style={{margin:"0 0 0 10px"}}/></Button>
+                    <Button variant="secondary" style={{padding:"10px", float:"right"}}>Exportar para PDF <i className="feather icon-upload" style={{margin:"0 0 0 10px"}}/></Button>
                 </Col>
                 <Col md={6} xl={12}>
                 <Card className="Recent-Users Pacients-List">
@@ -63,16 +63,16 @@ const PatientPage = () => {
                             <Table responsive>
                                 <tbody>
                                     <tr className="unread">
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="mb-1">DATA</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="mb-1">OCASIÕES</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="mb-1">GLICEMIA</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="mb-1">INSULINA APLICADA</h6>
                                         </td>
                                     </tr>
@@ -83,72 +83,72 @@ const PatientPage = () => {
                             <Table responsive hover>
                                 <tbody>
                                     <tr className="unread">
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">29/09/2021</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">2h Após Jantar</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">120 mg/dl</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">1</h6>
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">29/09/2021</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">Antes do Jantar</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">85 mg/dl</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">1</h6>
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">29/09/2021</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">Antes do Café da Tarde</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">100 mg/dl</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">2</h6>
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">29/09/2021</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">Antes do Almoço</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">350 mg/dl</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">6</h6>
                                         </td>
                                     </tr>
                                     <tr className="unread">
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">29/09/2021</h6>
                                         </td>
-                                        <td class="col-xl-3">
+                                        <td className="col-xl-3">
                                             <h6 className="text-muted">Antes do Café da Manhã</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">50 mg/dl</h6>
                                         </td>
-                                        <td class="col-xl-3 progress-registers">
+                                        <td className="col-xl-3 progress-registers">
                                             <h6 className="text-muted">-</h6>
                                         </td>
                                     </tr>

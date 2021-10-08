@@ -19,7 +19,7 @@ const FormsElements = () => {
                 <Col sm={12}>
                     <Card>
                         <Card.Header>
-                            <Card.Title as="h5"><i class="feather icon-user"/> Dados Pessoais</Card.Title>
+                            <Card.Title as="h5"><i className="feather icon-user"/> Dados Pessoais</Card.Title>
                         </Card.Header>
                         <Card.Body>
                             <Row>
