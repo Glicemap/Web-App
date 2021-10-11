@@ -7,6 +7,10 @@ const utilizeMock = (axios) => {
   mock.onGet(/all-users/).reply(200, mocks);
   mock.onGet(/single-user/).reply(200, mocks.users[0]);
   mock.onGet(/get-new-code/).reply(200, mocks.newPatientCode[Math.floor(Math.random() * 10)]);
+  mock.onGet(/all-patients/).reply(200, mocks.patients);
+  mock.onGet(/all-notifications/).reply(200, mocks.notifications);
+  mock.onPost(/read-notifications/).reply(200, []);
+  mock.onDelete(/delete-notifications/).reply(200, []);
 };
 
 export default utilizeMock;

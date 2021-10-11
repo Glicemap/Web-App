@@ -3,8 +3,9 @@ function Checkbox(props) {
         <input
         key={props.key}
         id={props.id}
-        onChange={props.onChange}
+        onChange={props.handleClick}
         checked={props.isChecked}
+        type="checkbox"
       />
     );
 }
