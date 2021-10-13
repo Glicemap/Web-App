@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { fetchAllSettings } from '../../../api/requests';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import useScriptRef from '../../../hooks/useScriptRef';
+import { useHistory } from 'react-router-dom';
 
 const FormsElements = () => {
     const [validated, setValidated] = useState(false);
     const [settings, setSettings] = useState([{"name": "Marco Aurélio", "email": "marco.aurelio@usp.br", "crm": "4206969"}]);
     const [password, setPassword] = useState([]);
     const [message, setMessage] = useState([]);
+    let history = useHistory();
+    const scriptedRef = useScriptRef();
 
 
     /*useEffect(() => {
@@ -52,50 +58,170 @@ const FormsElements = () => {
 
     return (
         <React.Fragment>
-            <Row>
-                <Col sm={12}>
-                    <Card>
-                        <Card.Header>
-                            <Card.Title as="h5"><i className="feather icon-user"/> Dados Pessoais</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <Form onSubmit={handleSubmit}>
-                                <Row>
-                                    <Col md={6}>
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" name="email" placeholder={settings[0].email} onChange={handleChange} />
-                                        </Form.Group>
-                                        <Form.Group controlId="exampleForm.ControlInput1">
-                                            <Form.Label>Nome</Form.Label>
-                                            <Form.Control type="text" name="name" placeholder={settings[0].name} onChange={handleChange} />
-                                        </Form.Group>
-                                        <Form.Group controlId="exampleForm.ControlInput1">
-                                            <Form.Label>CRM</Form.Label>
-                                            <Form.Control type="number" name="crm" placeholder={settings[0].crm} onChange={handleChange} />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={6}>
-                                        <Form.Group controlId="formBasicPassword">
-                                            <Form.Label>Senha Atual</Form.Label>
-                                            <Form.Control type="password" name="old" placeholder="Digite sua senha atual" onChange={newPassword} />
-                                        </Form.Group>
-                                        <Form.Group controlId="formBasicPassword">
-                                            <Form.Label>Nova Senha</Form.Label>
-                                            <Form.Control type="password" name="new" placeholder="Digite sua nova senha" onChange={newPassword} />
-                                        </Form.Group>
-                                        <Form.Group controlId="formBasicPassword">
-                                            <Form.Label>Confirme a Nova Senha</Form.Label>
-                                            <Form.Control type="password" name="confirm" placeholder="Confirme sua nova senha" onChange={checkPassword} />
-                                        </Form.Group>
-                                        <Button variant="primary" type="submit" style={{float:"right", margin:"0"}}>Salvar</Button>
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
+            <Formik
+                initialValues={{
+                    name: settings[0]['name'],
+                    email: settings[0]['email'],
+                    old_password: '',
+                    password: '',
+                    password_confirm: '',
+                    crm: settings[0]['crm'],
+                    submit: null
+                }}
+                validationSchema={Yup.object().shape({
+                    email: Yup.string().email('E-mail inválido').max(255).required('O campo E-mail é obrigatório'),
+                    name: Yup.string().max(255).min(4).required('O campo Nome é obrigatório'),
+                    old_password: Yup.string().max(255),
+                    password: Yup.string().max(255),
+                    password_confirm: Yup.string().max(255).oneOf([Yup.ref('password'), null], 'A confirmação deve ser igual à senha digitada'),
+                    crm: Yup.string()
+                        .min(4, "O campo não deve ter menos que 4 caracteres")
+                        .matches(/^[0-9]+$/, "O campo deve conter apenas dígitos")
+                        .required("O campo CRM é obrigatório")
+                })}
+                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+                    try {
+                        console.log("foi")
+                    } catch (err) {
+                        console.error(err);
+                        if (scriptedRef.current) {
+                            setStatus({ success: false });
+                            setErrors({ submit: err.message });
+                            setSubmitting(false);
+                        }
+                    }
+                }}
+            >
+                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+                    <Row>
+                        <Col sm={12}>
+                            <Card>
+                                <Card.Header>
+                                    <Card.Title as="h5"><i className="feather icon-user"/> Dados Pessoais</Card.Title>
+                                </Card.Header>
+                                <Card.Body>
+                                    <form noValidate onSubmit={handleSubmit} className="form" >
+                                        <Row>
+                                            <Col md={6}>
+                                                <div className="form-group mb-4">
+                                                    <Form.Label>Email</Form.Label>
+                                                    <input
+                                                        className="form-control"
+                                                        error={touched.email && errors.email}
+                                                        label="Email Address"
+                                                        placeholder={settings[0]['email']}
+                                                        name="email"
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="email"
+                                                        value={values.email}
+                                                    />
+                                                    {touched.email && errors.email && <small className="text-danger form-text">{errors.email}</small>}
+                                                </div>
+                                                <div className="form-group mb-4">
+                                                    <Form.Label>Nome</Form.Label>
+                                                    <input
+                                                        className="form-control"
+                                                        error={touched.name && errors.name}
+                                                        label="Name"
+                                                        placeholder={settings[0]['name']}
+                                                        name="name"
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="name"
+                                                        value={values.name}
+                                                    />
+                                                    {touched.name && errors.name && <small className="text-danger form-text">{errors.name}</small>}
+                                                </div>
+                                                <div className="form-group mb-4">
+                                                    <Form.Label>CRM</Form.Label>
+                                                    <input
+                                                        className="form-control"
+                                                        error={touched.crm && errors.crm}
+                                                        label="CRM"
+                                                        placeholder={settings[0]['crm']}
+                                                        name="crm"
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        value={values.crm}
+                                                        maxLength='10'
+                                                    />
+                                                    {touched.crm && errors.crm && <small className="text-danger form-text">{errors.crm}</small>}
+                                                </div>
+                                            </Col>
+                                            <Col md={6}>
+                                                <div className="form-group mb-4">
+                                                    <Form.Label>Senha Atual</Form.Label>
+                                                    <input
+                                                        className="form-control"
+                                                        error={touched.old_password && errors.old_password}
+                                                        label="OldPassword"
+                                                        placeholder="Senha Atual"
+                                                        name="old_password"
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="password"
+                                                        value={values.old_password}
+                                                    />
+                                                    {touched.old_password && errors.old_password && <small className="text-danger form-text">{errors.old_password}</small>}
+                                                </div>
+                                                <div className="form-group mb-4">
+                                                    <Form.Label>Nova Senha</Form.Label>
+                                                    <input
+                                                        className="form-control"
+                                                        error={touched.password && errors.password}
+                                                        label="Password"
+                                                        placeholder="Nova Senha"
+                                                        name="password"
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="password"
+                                                        value={values.password}
+                                                    />
+                                                    {touched.password && errors.password && <small className="text-danger form-text">{errors.password}</small>}
+                                                </div>
+                                                <div className="form-group mb-4">
+                                                    <Form.Label>Confirme sua senha</Form.Label>
+                                                    <input
+                                                        className="form-control"
+                                                        error={touched.password_confirm && errors.password_confirm}
+                                                        label="Password"
+                                                        placeholder="Confirme sua senha"
+                                                        name="password_confirm"
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="password"
+                                                        value={values.password_confirm}
+                                                    />
+                                                    {touched.password_confirm && errors.password_confirm && <small className="text-danger form-text">{errors.password_confirm}</small>}
+                                                </div>
+                                                <Row>
+                                                    <Col md={8} />
+                                                    <Col md={4}>
+                                                        <Button
+                                                            className="btn-block"
+                                                            color="primary"
+                                                            disabled={isSubmitting}
+                                                            size="large"
+                                                            type="submit"
+                                                            variant="primary"
+                                                            style={{float:"right",margin:"0"}}
+                                                        >
+                                                            Salvar
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                        </Row>
+                                    </form>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                )}
+                
+            </Formik>
         </React.Fragment>
     );
 };
