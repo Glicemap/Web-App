@@ -50,4 +50,8 @@ export /*default async function deleteNotifications(ids)*/ const deleteNotificat
     })*/
 
     return /*response*/ client.delete('/delete-notifications');
-}
+};
+
+export const fetchAllSettings = () => {
+    return client.get('/get-settings');
+};

@@ -106,5 +106,13 @@
             "id": "06",
             "text": "Jane Cooper adicionou você como seu médico!"
         }
+    ],
+    "settings": [
+        {
+            "id": "01",
+            "email": "marco.aurelio@usp.br",
+            "name": "Marco Aurélio",
+            "crm": "426969"
+        }
     ]
 }

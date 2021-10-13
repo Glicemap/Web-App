@@ -14,7 +14,7 @@ const PatientPage = () => {
                         </Card.Header>
                         <Card.Body>
                             <Row>
-                                <Col md={6} xl={8}>
+                                <Col md={6} xl={10}>
                                     <Row>
                                         <Col md={6} xl={1}>
                                             <p className="filter-and">De</p>
@@ -30,7 +30,6 @@ const PatientPage = () => {
                                         </Col>
                                     </Row>
                                 </Col>
-                                <Col md={6} xl={2} />
                                 <Col md={6} xl={2}>
                                     <Button variant="primary" style={{float:"right"}}>Filtrar</Button>
                                 </Col>

@@ -11,6 +11,7 @@ const utilizeMock = (axios) => {
   mock.onGet(/all-notifications/).reply(200, mocks.notifications);
   mock.onPost(/read-notifications/).reply(200, []);
   mock.onDelete(/delete-notifications/).reply(200, []);
+  mock.onGet(/get-settings/).reply(200, mocks.settings)
 };
 
 export default utilizeMock;
