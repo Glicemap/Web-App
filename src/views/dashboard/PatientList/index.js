@@ -7,14 +7,15 @@ import { Patients } from './mock.js'
 
 const DashDefault = () => {
     const[list, setList] = useState([]);
+    const[filter, setFilter] = useState({"name":"", "from":"", "to":"", "frequency":""});
 
-    /*async function getList() {
-        var fullList = await fetchAllPatients();
+    /*async function getList(name, from, to, frequency) {
+        var fullList = await fetchAllPatients(name, from, to, frequency);
         return fullList.data;
     }*/
 
     useEffect(() => {
-        setList(Patients);
+        setList(Patients); //setList(getList(filter.name, filter.from, filter.to, filter.frequency))
     }, [list]);
 
     const patientsList = list.map(({ id, name, frequency, percentage }) => {
@@ -27,6 +28,10 @@ const DashDefault = () => {
         );
     });
 
+    function handleFilter(event) {
+        setFilter({"name":event.target[0].value, "from":event.target[1].value, "to":event.target[2].value, "frequency":event.target[3].value})
+    }
+
     return (
         <React.Fragment>
             <Row>
@@ -36,7 +41,7 @@ const DashDefault = () => {
                             <Card.Title as="h5">FILTRO</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Form>
+                            <Form onSubmit={handleFilter}>
                                 <Row>
                                     <Col md={6} xl={3}>
                                         <Form.Label>Nome</Form.Label>
@@ -59,10 +64,10 @@ const DashDefault = () => {
                                     <Col md={6} xl={3}>
                                         <Form.Label>Frequência de Medições</Form.Label>
                                         <Form.Control as="select">
-                                            <option>Nenhuma frequência</option>
-                                            <option value="1">Baixa</option>
-                                            <option value="2">Média</option>
-                                            <option value="3">Alta</option>
+                                            <option value="">Nenhuma frequência</option>
+                                            <option value="low">Baixa</option>
+                                            <option value="medium">Média</option>
+                                            <option value="high">Alta</option>
                                         </Form.Control>
                                     </Col>
                                 </Row>
@@ -70,7 +75,7 @@ const DashDefault = () => {
                                     <Col md={6} xl={10}>
                                     </Col>
                                     <Col md={6} xl={2}>
-                                        <Button variant="primary">Filtrar</Button>
+                                        <Button variant="primary" type="submit">Filtrar</Button>
                                     </Col>
                                 </Row>
                             </Form>
