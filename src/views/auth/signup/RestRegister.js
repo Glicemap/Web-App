@@ -28,7 +28,10 @@ const RestRegister = ({ className, ...rest }) => {
                     username: Yup.string().required('O campo Nome é obrigatório'),
                     password: Yup.string().max(255).required('O campo Senha é obrigatório'),
                     password_confirm: Yup.string().max(255).required('O campo de Confirmação de Senha é obrigatório').oneOf([Yup.ref('password'), null], 'A confirmação deve ser igual à senha digitada'),
-                    crm: Yup.number().max(9).min(9).required("O campo CRM é obrigatório")
+                    crm: Yup.string()
+                        .min(4, "O campo não deve ter menos que 4 caracteres")
+                        .matches(/^[0-9]+$/, "O campo deve conter apenas dígitos")
+                        .required("O campo CRM é obrigatório")
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -102,8 +105,9 @@ const RestRegister = ({ className, ...rest }) => {
                                 name="crm"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                type="number"
+                                type="text"
                                 value={values.crm}
+                                maxLength='10'
                             />
                             {touched.crm && errors.crm && <small className="text-danger form-text">{errors.crm}</small>}
                         </div>
