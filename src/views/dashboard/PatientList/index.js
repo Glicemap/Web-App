@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import PatientRow from '../../../components/Patients/PatientRow';
 import { fetchAllPatients } from '../../../api/requests';
-import { Patients } from './mock.js'
 
 const DashDefault = () => {
     const[list, setList] = useState([]);
     const[filter, setFilter] = useState({"name":"", "from":"", "to":"", "frequency":""});
 
-    /*async function getList(name, from, to, frequency) {
-        var fullList = await fetchAllPatients(name, from, to, frequency);
+    async function getList() {
+        var fullList = await fetchAllPatients();
         return fullList.data;
-    }*/
+    }
 
     useEffect(() => {
-        setList(Patients); //setList(getList(filter.name, filter.from, filter.to, filter.frequency))
-    }, [list]);
+        async function fetch() {
+            const x = await getList(); //getList(filter.name, filter.from, filter.to, filter.frequency)
+            setList(x)
+        }
+        fetch()
+    }, []);
 
     const patientsList = list.map(({ id, name, frequency, percentage }) => {
         return (

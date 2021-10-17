@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Catalogues } from './mock';
 import { Row, Col, Table, Card, Button } from 'react-bootstrap';
 import Checkbox from '../../../components/NotifTable/checkbox';
 import { fetchAllNotifications, readNotifications, deleteNotifications } from '../../../api/requests';
@@ -10,14 +9,18 @@ const Notifications = () => {
     const [isCheck, setIsCheck] = useState([]);
     const [list, setList] = useState([]);
 
-    /*async function getNotifications() {
+    async function getNotifications() {
         var fullList = await fetchAllNotifications();
         return fullList.data;
-    }*/
+    }
 
     useEffect(() => {
-        setList(Catalogues);
-    }, [list]);
+        async function fetch() {
+            const x = await getNotifications();
+            setList(x);
+        }
+        fetch()
+    }, []);
 
     const handleSelectAll = e => {
         setIsCheckAll(!isCheckAll);

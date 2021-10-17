@@ -41,7 +41,9 @@
         "sass": "1.32.8",
         "styled-components": "^5.2.1",
         "web-vitals": "^1.1.0",
-        "yup": "^0.32.9"
+        "yup": "^0.32.9",
+        "algoliasearch": "^4.10.5",
+        "react-instantsearch-dom": "^6.10.3"
     },
     "scripts": {
         "start": "react-scripts start",

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
-import { getNewCode, fetchAllUsers } from '../../../api/requests';
+import { getNewCode } from '../../../api/requests';
 
 
 

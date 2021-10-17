@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { fetchAllSettings } from '../../../api/requests';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,21 +8,23 @@ import { useHistory } from 'react-router-dom';
 
 const FormsElements = () => {
     const [validated, setValidated] = useState(false);
-    const [settings, setSettings] = useState([{"name": "Marco Aurélio", "email": "marco.aurelio@usp.br", "crm": "4206969"}]);
+    const [settings, setSettings] = useState([{"name": "", "email": "", "crm": ""}]);
     const [password, setPassword] = useState([]);
-    const [message, setMessage] = useState([]);
     let history = useHistory();
     const scriptedRef = useScriptRef();
-
-
-    /*useEffect(() => {
-        setSettings(getSettings());
-    }, []);
 
     async function getSettings() {
         var fullList = await fetchAllSettings();
         return fullList.data;
-    }*/
+    }
+
+    useEffect(() => {
+        async function fetch() {
+            const x = await getSettings();
+            setSettings(x)
+        }
+        fetch()
+    }, []);
 
     function handleSubmit(event) {
         const form = event.currentTarget;
@@ -91,6 +93,7 @@ const FormsElements = () => {
                         }
                     }
                 }}
+                enableReinitialize={true}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <Row>
@@ -109,7 +112,7 @@ const FormsElements = () => {
                                                         className="form-control"
                                                         error={touched.email && errors.email}
                                                         label="Email Address"
-                                                        placeholder={settings[0]['email']}
+                                                        placeholder={values.email}
                                                         name="email"
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
@@ -124,7 +127,7 @@ const FormsElements = () => {
                                                         className="form-control"
                                                         error={touched.name && errors.name}
                                                         label="Name"
-                                                        placeholder={settings[0]['name']}
+                                                        placeholder={values.name}
                                                         name="name"
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
@@ -139,7 +142,7 @@ const FormsElements = () => {
                                                         className="form-control"
                                                         error={touched.crm && errors.crm}
                                                         label="CRM"
-                                                        placeholder={settings[0]['crm']}
+                                                        placeholder={values.crm}
                                                         name="crm"
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
