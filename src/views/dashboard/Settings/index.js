@@ -72,7 +72,7 @@ const FormsElements = () => {
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('E-mail inválido').max(255).required('O campo E-mail é obrigatório'),
-                    name: Yup.string().max(255).min(4).required('O campo Nome é obrigatório'),
+                    name: Yup.string().max(255).required('O campo Nome é obrigatório').min(4, "O campo não deve ter menos que 4 caracteres"),
                     old_password: Yup.string().max(255),
                     password: Yup.string().max(255),
                     password_confirm: Yup.string().max(255).oneOf([Yup.ref('password'), null], 'A confirmação deve ser igual à senha digitada'),
