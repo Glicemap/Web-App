@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
 import PatientRow from '../../../components/Patients/PatientRow';
-import { fetchAllPatients } from '../../../api/requests';
+import { fetchPatients } from '../../../api/requests';
 
 const DashDefault = () => {
     const[list, setList] = useState([]);
     const[filter, setFilter] = useState({"name":"", "from":"", "to":"", "frequency":""});
 
     async function getList() {
-        var fullList = await fetchAllPatients();
+        var fullList = await fetchPatients();
         return fullList.data;
     }
 

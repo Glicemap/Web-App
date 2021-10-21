@@ -20,13 +20,13 @@ const PatientPage = () => {
                                             <p className="filter-and">De</p>
                                         </Col>
                                         <Col md={6} xl={5}>
-                                            <Form.Control type="date"></Form.Control>
+                                            <Form.Control type="date" className="from"></Form.Control>
                                         </Col>
                                         <Col md={6} xl={1}>
                                             <p className="filter-and">até</p>
                                         </Col>
                                         <Col md={6} xl={5}>
-                                            <Form.Control type="date"></Form.Control>
+                                            <Form.Control type="date" className="to"></Form.Control>
                                         </Col>
                                     </Row>
                                 </Col>
