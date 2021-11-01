@@ -1,45 +1,93 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
+import { useLocation } from "react-router-dom";
 import HeatCalendar from './chart/HeatCalendar';
 import BarDiscreteChart from './chart/BarDiscreteChart';
+import MeasureRow from './chart/MeasureRow';
+import { fetchPatient } from '../../../api/requests';
 
 const PatientPage = () => {
+    const[patient, setPatient] = useState({"name":"",
+                                           "low":[],
+                                           "midlow":[],
+                                           "midhigh":[],
+                                           "high":[],
+                                           "frequencys":[],
+                                           "measures":[]});
+    const[filter, setFilter] = useState({"from":"", "to":""});
+    const { state } = useLocation();
+
+    async function getPatient() {
+        var patient = await fetchPatient();
+        return patient.data;
+    }
+
+    useEffect(() => {
+        async function fetch() {
+            const x = await getPatient(state.id, filter.from, filter.to);
+            setPatient(x)
+        }
+        fetch()
+    }, [state]);
+
+    function handleFilter(event) {
+        setFilter({"from":event.target[0].value, "to":event.target[1].value})
+    }
+
+    const measuresList = patient.measures.map(({ date, ocasion, glicemy, insulin }) => {
+        return (
+            <MeasureRow
+                date = {date}
+                ocasion = {ocasion}
+                glicemy = {glicemy}
+                insulin = {insulin}
+            />
+        );
+    });
+
     return (
         <React.Fragment>
             <Row>
                 <Col md={6} xl={12}>
                     <Card>
                         <Card.Header>
-                            <Card.Title as="h5">Robert Fox</Card.Title>
+                            <Card.Title as="h5">{patient.name}</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Row>
-                                <Col md={6} xl={10}>
-                                    <Row>
-                                        <Col md={6} xl={1}>
-                                            <p className="filter-and">De</p>
-                                        </Col>
-                                        <Col md={6} xl={5}>
-                                            <Form.Control type="date" className="from"></Form.Control>
-                                        </Col>
-                                        <Col md={6} xl={1}>
-                                            <p className="filter-and">até</p>
-                                        </Col>
-                                        <Col md={6} xl={5}>
-                                            <Form.Control type="date" className="to"></Form.Control>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                                <Col md={6} xl={2}>
-                                    <Button variant="primary" style={{float:"right"}}>Filtrar</Button>
-                                </Col>
-                            </Row>
+                            <Form onSubmit={handleFilter}>
+                                <Row>
+                                    <Col md={6} xl={10}>
+                                        <Row>
+                                            <Col md={6} xl={1}>
+                                                <p className="filter-and">De</p>
+                                            </Col>
+                                            <Col md={6} xl={5}>
+                                                <Form.Control type="date" className="from"></Form.Control>
+                                            </Col>
+                                            <Col md={6} xl={1}>
+                                                <p className="filter-and">até</p>
+                                            </Col>
+                                            <Col md={6} xl={5}>
+                                                <Form.Control type="date" className="to"></Form.Control>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col md={6} xl={2}>
+                                        <Button variant="primary" style={{float:"right"}} type="submit">Filtrar</Button>
+                                    </Col>
+                                </Row>
+                            </Form>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col md={6} xl={4}>
                     <Card>
-                        <HeatCalendar />
+                        <HeatCalendar 
+                            low={patient.low}
+                            midlow={patient.midlow}
+                            midhigh={patient.midhigh}
+                            high={patient.high}
+                        />
                     </Card>
                 </Col>
                 <Col md={6} xl={8}>
@@ -49,7 +97,7 @@ const PatientPage = () => {
                             <Card.Subtitle as="h6">em mg/dl</Card.Subtitle>
                         </Card.Header>
                         <Card.Body>
-                            <BarDiscreteChart />
+                            <BarDiscreteChart frequencys={patient.frequencys} />
                         </Card.Body>
                     </Card>
                 </Col>
@@ -81,76 +129,7 @@ const PatientPage = () => {
                         <Card.Body className="px-0 py-2">
                             <Table responsive hover>
                                 <tbody>
-                                    <tr className="unread">
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">29/09/2021</h6>
-                                        </td>
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">2h Após Jantar</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">120 mg/dl</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">1</h6>
-                                        </td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">29/09/2021</h6>
-                                        </td>
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">Antes do Jantar</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">85 mg/dl</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">1</h6>
-                                        </td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">29/09/2021</h6>
-                                        </td>
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">Antes do Café da Tarde</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">100 mg/dl</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">2</h6>
-                                        </td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">29/09/2021</h6>
-                                        </td>
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">Antes do Almoço</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">350 mg/dl</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">6</h6>
-                                        </td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">29/09/2021</h6>
-                                        </td>
-                                        <td className="col-xl-3">
-                                            <h6 className="text-muted">Antes do Café da Manhã</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">50 mg/dl</h6>
-                                        </td>
-                                        <td className="col-xl-3 progress-registers">
-                                            <h6 className="text-muted">-</h6>
-                                        </td>
-                                    </tr>
+                                    {measuresList}
                                 </tbody>
                             </Table>
                         </Card.Body>

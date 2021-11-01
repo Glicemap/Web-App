@@ -4,7 +4,19 @@
             "id": "1",
             "name": "Robert Fox",
             "frequency": "low",
-            "percentage": "25"
+            "percentage": "25",
+            "low": ["05-11-2021", "11-11-2021", "23-11-2021"],
+            "midlow": ["01-11-2021", "09-11-2021", "10-11-2021", "24-11-2021"],
+            "midhigh": ["04-11-2021", "12-11-2021", "13-11-2021", "15-11-2021", "18-11-2021", "26-11-2021"],
+            "high": ["03-11-2021", "17-11-2021", "25-11-2021"],
+            "frequencys": ["32", "256", "144", "168", "248", "96", "144", "168", "40"],
+            "measures": [
+                            {"date":"29/09/2021", "ocasion":"2h Após Jantar", "glicemy":"120", "insulin":"1"},
+                            {"date":"29/09/2021", "ocasion":"Antes do Jantar", "glicemy":"85", "insulin":"1"},
+                            {"date":"29/09/2021", "ocasion":"Antes do Café da Tarde", "glicemy":"100", "insulin":"2"},
+                            {"date":"29/09/2021", "ocasion":"Antes do Almoço", "glicemy":"350", "insulin":"6"},
+                            {"date":"29/09/2021", "ocasion":"Antes do Café da Manhã", "glicemy":"50", "insulin":"-"}
+                        ]
         },
         {
             "id": "2",
@@ -84,27 +96,33 @@
     "notifications": [
         {
             "id": "01",
-            "text": "Robert Fox adicionou você como seu médico!"
+            "text": "Robert Fox adicionou você como seu médico!",
+            "read": true
         },
         {
             "id": "02",
-            "text": "Darlene Robertson adicionou você como seu médico!"
+            "text": "Darlene Robertson adicionou você como seu médico!",
+            "read": true
         },
         {
             "id": "03",
-            "text": "Theresa Webb adicionou você como seu médico!"
+            "text": "Theresa Webb adicionou você como seu médico!",
+            "read": true
         },
         {
             "id": "04",
-            "text": "Kristin Watson adicionou você como seu médico!"
+            "text": "Kristin Watson adicionou você como seu médico!",
+            "read": false
         },
         {
             "id": "05",
-            "text": "Cody Fisher adicionou você como seu médico!"
+            "text": "Cody Fisher adicionou você como seu médico!",
+            "read": false
         },
         {
             "id": "06",
-            "text": "Jane Cooper adicionou você como seu médico!"
+            "text": "Jane Cooper adicionou você como seu médico!",
+            "read": true
         }
     ],
     "settings": [

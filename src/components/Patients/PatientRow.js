@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function PatientRow(props) {
     var freq;
     var color;
@@ -24,7 +26,15 @@ function PatientRow(props) {
     return (
         <tr className="unread">
             <td className="col-xl-4">
-                <a href="/patient-list/patient" as="h6" className="mb-1">{props.name}</a>
+                <Link to={{
+                            pathname: `/patient-list/patient/${props.id}/`,
+                            state: { users: props }
+                        }} 
+                      as="h6" 
+                      className="mb-1"
+                >
+                    {props.name}
+                </Link>
             </td>
             <td className="col-xl-4">
                 <h6 className="text-muted">

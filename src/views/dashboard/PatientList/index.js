@@ -14,7 +14,7 @@ const DashDefault = () => {
 
     useEffect(() => {
         async function fetch() {
-            const x = await getList(); //getList(filter.name, filter.from, filter.to, filter.frequency)
+            const x = await getList(filter.name, filter.from, filter.to, filter.frequency);
             setList(x)
         }
         fetch()
@@ -26,6 +26,7 @@ const DashDefault = () => {
                 name = {name}
                 frequency = {frequency}
                 percentage = {percentage}
+                id = {id}
             />
         );
     });

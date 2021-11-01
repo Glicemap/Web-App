@@ -88,7 +88,7 @@ const routes = [
 
             {
                 exact: true,
-                path: '/patient-list/patient',
+                path: '/patient-list/patient/:id/',
                 component: lazy(() => import('./views/dashboard/Patient'))
             },
 

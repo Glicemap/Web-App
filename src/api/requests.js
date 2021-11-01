@@ -29,6 +29,18 @@ export const fetchPatients = (name, from, to, frequency) => {
     return client.get('/get-patients/', request);
 };
 
+export const fetchPatient = (id, from, to) => {
+    var request ={
+        params: {
+            id: (typeof id === 'undefined' ? '' : id),
+            from: (typeof from === 'undefined' ? '' : from),
+            to: (typeof to === 'undefined' ? '' : to)
+        }
+    }
+
+    return client.get('/get-patient', request);
+};
+
 export const fetchAllNotifications = () => {
     return client.get('/get-notifications/');
 };

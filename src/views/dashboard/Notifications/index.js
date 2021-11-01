@@ -38,7 +38,8 @@ const Notifications = () => {
         }
     };
 
-    const notifications = list.map(({ id, text }) => {
+    const notifications = list.map(({ id, text, read }) => {
+        const boldClass = read ? "col-xl-11" : "col-xl-11 notif-read"
         return (
             <tr className="unread">
                 <td className="col-xl-1">
@@ -49,7 +50,7 @@ const Notifications = () => {
                         isChecked={isCheck.includes(id)}
                     />
                 </td>
-                <td className="col-xl-11">
+                <td className={boldClass}>
                     {text}
                 </td>
             </tr>
