@@ -24,10 +24,10 @@ function PatientRow(props) {
     const percentage = props.percentage + '%';
 
     return (
-        <tr className="unread" key={props.id}>
+        <tr className="unread" key={props.documentNumber}>
             <td className="col-xl-4">
                 <Link to={{
-                            pathname: `/patient-list/patient/${props.id}/`,
+                            pathname: `/patient-list/patient/${props.documentNumber}/`,
                             state: { users: props }
                         }} 
                       as="h6" 

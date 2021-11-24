@@ -51,7 +51,6 @@ export const fetchPatients = async (name, from, to, frequency) => {
 
     return axios({method: "post", url: `${API_SERVER}/patients/`, headers: headers, data: body})
     .then(response => {
-        console.log(response)
         return response.data;
     })
     .catch(error => {
@@ -59,24 +58,29 @@ export const fetchPatients = async (name, from, to, frequency) => {
     });
 };
 
-export const fetchPatient = async (id, from, to) => {
-    from = typeof from === 'undefined' ? null : from.split('-');
+export const fetchPatient = async (documentNumber, from, to) => {
+    from = typeof from === 'undefined' || from === '' ? null : from.split('-');
     from = from === null ? null : `${from[2]}-${from[1]}-${from[0]}`
     
-    to = typeof to === 'undefined' ? null : to.split('-');
+    to = typeof to === 'undefined' || to === '' ? null : to.split('-');
     to = to === null ? null : `${to[2]}-${to[1]}-${to[0]}`
 
-    id = typeof id === 'undefined' ? null : id;
+    documentNumber = typeof documentNumber === 'undefined' ? "" : documentNumber;
 
-    var request ={
-        params: {
-            id: id,
-            from: from,
-            to: to
-        }
-    }
+    var body = {
+        "from": from,
+        "to": to
+    };
 
-    return client.get('/get-patient', request);
+    console.log(`${API_SERVER}/patients/${documentNumber}`);
+    return axios({method: "post", url: `${API_SERVER}/patients/${documentNumber}`, data: body})
+    .then(response => {
+        console.log(response.data);
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
 };
 
 export const fetchAllNotifications = () => {

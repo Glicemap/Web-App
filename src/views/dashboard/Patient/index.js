@@ -18,15 +18,15 @@ const PatientPage = () => {
     const[filter, setFilter] = useState({"from":"", "to":""});
     const[state, setState] = useState(useLocation());
 
-    async function getPatient() {
-        var patient = await fetchPatient();
-        return patient.data;
+    async function getPatient(documentNumber, from, to) {
+        var patient = await fetchPatient(documentNumber, from, to);
+        return patient;
     }
 
     useEffect(() => {
         async function fetch() {
-            const x = await getPatient(state.id, filter["from"], filter["to"]);
-            setPatient(patient => ({...patient, x}))
+            const x = await getPatient(state.state.users.documentNumber, filter["from"], filter["to"]);
+            setPatient(x);
         }
         fetch()
         console.log("useEffect")
@@ -38,7 +38,7 @@ const PatientPage = () => {
 
     function handleFilter(event) {
         async function fetch() {
-            const x = await getPatient(state.id, event.target[0].value, event.target[1].value);
+            const x = await getPatient(state.state.users.documentNumber, event.target[0].value, event.target[1].value);
             setPatient(x)
         }
         fetch()
@@ -50,14 +50,19 @@ const PatientPage = () => {
         
     }
 
-    const measuresList = patient.measures.map(({ date, ocasion, glicemy, insulin }) => {
+    const measuresList = patient.measures.map(({ date, measures }) => {
         return (
-            <MeasureRow
-                date = {date}
-                ocasion = {ocasion}
-                glicemy = {glicemy}
-                insulin = {insulin}
-            />
+            measures.map(({sugarLevel, insulin, situation, observations}) => {
+                return (
+                    <MeasureRow
+                        date = {date}
+                        sugarLevel = {sugarLevel}
+                        insulin = {insulin}
+                        situation = {situation}
+                        observations = {observations}
+                    />
+                );
+            })
         );
     });
 

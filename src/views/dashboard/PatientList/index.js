@@ -21,13 +21,13 @@ const DashDefault = () => {
         fetch()
     }, []);
 
-    const patientsList = list.map(({ id, name, frequency, percentage }) => {
+    const patientsList = list.map(({ documentNumber, name, frequency, percentage }) => {
         return (
             <PatientRow
                 name = {name}
                 frequency = {frequency}
                 percentage = {percentage}
-                id = {id}
+                documentNumber = {documentNumber}
             />
         );
     });
