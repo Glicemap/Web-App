@@ -17,7 +17,7 @@ export const getNewCode = async () => {
         'CRM': '123456'
     };
 
-    return await axios.get(`${API_SERVER}/new-code/`, { headers })
+    return axios.get(`${API_SERVER}/new-code/`, { headers })
     .then(response => {
         return response.data
     })
@@ -39,7 +39,7 @@ export const fetchPatients = async (name, from, to, frequency) => {
     frequency = typeof frequency === 'undefined' ? null : frequency;
     
     const headers = {
-        'CRM': '123456'
+        "CRM": "123456"
     };
 
     var body = {
@@ -49,13 +49,12 @@ export const fetchPatients = async (name, from, to, frequency) => {
         "frequency": frequency
     };
 
-    return await axios.get(`${API_SERVER}/patients/`, { headers })
+    return axios({method: "post", url: `${API_SERVER}/patients/`, headers: headers, data: body})
     .then(response => {
-        
+        console.log(response)
         return response.data;
     })
     .catch(error => {
-        console.log(axios.get(`${API_SERVER}/patients/`, { headers }));
         console.log(error.response)
     });
 };
