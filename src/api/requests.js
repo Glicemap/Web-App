@@ -12,63 +12,68 @@ if (mockRequests) {
     utilizeMock(client);
 }
 
-// export const getNewCode = () => {
-//     var request = {
-//         headers: {
-//             CRM: '123456'
-//         }
-//     }
-//     //console.log(client.get('/new-code', request))
-//     return client.get('/new-code', request);
-//     //return axios.get(`${API_SERVER}/new-code`, request).then((response) => {console.log(response)}).catch((response) => {console.log(response)});
-// };
-
-// export async function getNewCode() {
-//     var request = {
-//         headers: {
-//             CRM: '123456'
-//         }
-//     }
-//     //console.log(client.get('/new-code', request))
-//     const response = await client.get('/new-code', request).then((response) => {console.log(response)}).catch(console.log("deu ruim"));
-//     return response
-// };
-
-export const getNewCode = () => {
+export const getNewCode = async () => {
     const headers = {
         'CRM': '123456'
     };
 
-    console.log(`getNewCode - url: [${API_SERVER}/new-code/] - header: [${headers}]`);
-    console.log(headers);
-    axios.get(`${API_SERVER}/new-code/`, { headers })
+    return await axios.get(`${API_SERVER}/new-code/`, { headers })
     .then(response => {
         return response.data
     })
     .catch(error => {
         console.log(error)
     });
+    
 };
 
-export const fetchPatients = (name, from, to, frequency) => {
-    var request = {
-        params: {
-            name: (typeof name === 'undefined' ? '' : name),
-            from: (typeof from === 'undefined' ? '' : from),
-            to: (typeof to === 'undefined' ? '' : to),
-            frequency: (typeof frequency === 'undefined' ? '' : frequency)
-        }
-    }
+export const fetchPatients = async (name, from, to, frequency) => {
+    from = typeof from === 'undefined' ? null : from.split('-');
+    from = from === null ? null : `${from[2]}-${from[1]}-${from[0]}`
+    
+    to = typeof to === 'undefined' ? null : to.split('-');
+    to = to === null ? null : `${to[2]}-${to[1]}-${to[0]}`
+    
+    name = typeof name === 'undefined' ? null : name;
+    
+    frequency = typeof frequency === 'undefined' ? null : frequency;
+    
+    const headers = {
+        'CRM': '123456'
+    };
 
-    return client.get('/get-patients/', request);
+    var body = {
+        "name": name,
+        "from": from,
+        "to": to,
+        "frequency": frequency
+    };
+
+    return await axios.get(`${API_SERVER}/patients/`, { headers })
+    .then(response => {
+        
+        return response.data;
+    })
+    .catch(error => {
+        console.log(axios.get(`${API_SERVER}/patients/`, { headers }));
+        console.log(error.response)
+    });
 };
 
-export const fetchPatient = (id, from, to) => {
+export const fetchPatient = async (id, from, to) => {
+    from = typeof from === 'undefined' ? null : from.split('-');
+    from = from === null ? null : `${from[2]}-${from[1]}-${from[0]}`
+    
+    to = typeof to === 'undefined' ? null : to.split('-');
+    to = to === null ? null : `${to[2]}-${to[1]}-${to[0]}`
+
+    id = typeof id === 'undefined' ? null : id;
+
     var request ={
         params: {
-            id: (typeof id === 'undefined' ? '' : id),
-            from: (typeof from === 'undefined' ? '' : from),
-            to: (typeof to === 'undefined' ? '' : to)
+            id: id,
+            from: from,
+            to: to
         }
     }
 
@@ -104,9 +109,11 @@ export const deleteNotifications = (ids) => {
 };
 
 export const fetchAllSettings = (id) => {
+    id = typeof id === 'undefined' ? null : id;
+
     var request = {
         params: {
-            id: (typeof id === 'undefined' ? '' : id)
+            id: id
         }
     }
 
@@ -114,12 +121,20 @@ export const fetchAllSettings = (id) => {
 };
 
 export const updateSettings = (id, email, name, crm) => {
+    id = typeof id === 'undefined' ? null : id;
+
+    name = typeof name === 'undefined' ? null : name;
+
+    email = typeof email === 'undefined' ? null : email;
+
+    crm = typeof crm === 'undefined' ? null : crm;
+
     var request = {
         params: {
-            id: (typeof id === 'undefined' ? '' : id),
-            name: (typeof name === 'undefined' ? '' : name),
-            email: (typeof email === 'undefined' ? '' : email),
-            crm: (typeof crm === 'undefined' ? '' : crm)
+            id: id,
+            name: name,
+            email: email,
+            crm: crm
         }
     }
 
@@ -127,15 +142,19 @@ export const updateSettings = (id, email, name, crm) => {
 };
 
 export const updatePassword = (id, current, new_pass) => {
+    id = typeof id === 'undefined' ? null : id;
+
+    current = typeof current === 'undefined' ? null : current;
+
+    new_pass = typeof new_pass === 'undefined' ? null : new_pass;
+
     var request = {
         params: {
-            id: (typeof id === 'undefined' ? '' : id),
-            current: (typeof current === 'undefined' ? '' : current),
-            new_pass: (typeof new_pass === 'undefined' ? '' : new_pass)
+            id: id,
+            current: current,
+            new_pass: new_pass
         }
     }
 
     return client.post('/update-password/', request);
 };
-
-//export const getNewCode;

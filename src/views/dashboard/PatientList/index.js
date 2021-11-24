@@ -9,7 +9,8 @@ const DashDefault = () => {
 
     async function getList() {
         var fullList = await fetchPatients();
-        return fullList.data;
+        console.log(fullList)
+        return fullList;
     }
 
     useEffect(() => {

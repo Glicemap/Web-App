@@ -5,20 +5,10 @@ import { getNewCode } from '../../../api/requests';
 
 
 const Notifications = () => {
-    const [code, setCode] = useState("");
-
-    useEffect(() => {
-        async function fetch() {
-            console.log(`a ${newCode}`);
-            var newCode = await getNewCode();
-            setCode(newCode);
-        }
-        fetch()
-    }, []);
+    const [code, setCode] = useState("Gerar Novo");
 
     async function handleNewCode() {
         const newCode = await getNewCode();
-        await console.log(`b ${newCode}`);
         await setCode(newCode);
         return;
     }
