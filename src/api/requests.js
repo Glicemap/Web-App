@@ -2,18 +2,52 @@ import axios from 'axios';
 import utilizeMock from './useMock';
 import { API_SERVER } from '../config/constant.js';
 
-const mockRequests = true;
+const mockRequests = false;
 
 const client = axios.create({
-    API_SERVER,
+    baseUrl: API_SERVER
 });
 
 if (mockRequests) {
     utilizeMock(client);
 }
 
+// export const getNewCode = () => {
+//     var request = {
+//         headers: {
+//             CRM: '123456'
+//         }
+//     }
+//     //console.log(client.get('/new-code', request))
+//     return client.get('/new-code', request);
+//     //return axios.get(`${API_SERVER}/new-code`, request).then((response) => {console.log(response)}).catch((response) => {console.log(response)});
+// };
+
+// export async function getNewCode() {
+//     var request = {
+//         headers: {
+//             CRM: '123456'
+//         }
+//     }
+//     //console.log(client.get('/new-code', request))
+//     const response = await client.get('/new-code', request).then((response) => {console.log(response)}).catch(console.log("deu ruim"));
+//     return response
+// };
+
 export const getNewCode = () => {
-    return client.get('/get-new-code/');
+    const headers = {
+        'CRM': '123456'
+    };
+
+    console.log(`getNewCode - url: [${API_SERVER}/new-code/] - header: [${headers}]`);
+    console.log(headers);
+    axios.get(`${API_SERVER}/new-code/`, { headers })
+    .then(response => {
+        return response.data
+    })
+    .catch(error => {
+        console.log(error)
+    });
 };
 
 export const fetchPatients = (name, from, to, frequency) => {
@@ -103,3 +137,5 @@ export const updatePassword = (id, current, new_pass) => {
 
     return client.post('/update-password/', request);
 };
+
+//export const getNewCode;

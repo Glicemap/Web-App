@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { getNewCode } from '../../../api/requests';
 
 
 
 const Notifications = () => {
-    const [code, setCode] = useState("7A5b6T");
+    const [code, setCode] = useState("");
+
+    useEffect(() => {
+        async function fetch() {
+            console.log(`a ${newCode}`);
+            var newCode = await getNewCode();
+            setCode(newCode);
+        }
+        fetch()
+    }, []);
 
     async function handleNewCode() {
-        var newCode = await getNewCode();
-        setCode(newCode.data.code);
+        const newCode = await getNewCode();
+        await console.log(`b ${newCode}`);
+        await setCode(newCode);
         return;
     }
 

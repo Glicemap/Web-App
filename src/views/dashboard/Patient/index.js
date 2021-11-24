@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import HeatCalendar from './chart/HeatCalendar';
 import BarDiscreteChart from './chart/BarDiscreteChart';
 import MeasureRow from './chart/MeasureRow';
+import PatientFilter from './patientFilter';
 import { fetchPatient } from '../../../api/requests';
 
 const PatientPage = () => {
@@ -15,7 +16,7 @@ const PatientPage = () => {
                                            "frequencys":[],
                                            "measures":[]});
     const[filter, setFilter] = useState({"from":"", "to":""});
-    const { state } = useLocation();
+    const[state, setState] = useState(useLocation());
 
     async function getPatient() {
         var patient = await fetchPatient();
@@ -24,14 +25,29 @@ const PatientPage = () => {
 
     useEffect(() => {
         async function fetch() {
-            const x = await getPatient(state.id, filter.from, filter.to);
+            const x = await getPatient(state.id, filter["from"], filter["to"]);
+            setPatient(patient => ({...patient, x}))
+        }
+        fetch()
+        console.log("useEffect")
+    }, [state, filter]);
+
+    useEffect(() => {
+        console.log("usePatient")
+    }, [patient])
+
+    function handleFilter(event) {
+        async function fetch() {
+            const x = await getPatient(state.id, event.target[0].value, event.target[1].value);
             setPatient(x)
         }
         fetch()
-    }, [state]);
+        console.log("filter")
+        //setFilter({"from":event.target[0].value, "to":event.target[1].value})
+    }
 
-    function handleFilter(event) {
-        setFilter({"from":event.target[0].value, "to":event.target[1].value})
+    function handlePdf() {
+        
     }
 
     const measuresList = patient.measures.map(({ date, ocasion, glicemy, insulin }) => {
@@ -54,29 +70,7 @@ const PatientPage = () => {
                             <Card.Title as="h5">{patient.name}</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Form onSubmit={handleFilter}>
-                                <Row>
-                                    <Col md={6} xl={10}>
-                                        <Row>
-                                            <Col md={6} xl={1}>
-                                                <p className="filter-and">De</p>
-                                            </Col>
-                                            <Col md={6} xl={5}>
-                                                <Form.Control type="date" className="from"></Form.Control>
-                                            </Col>
-                                            <Col md={6} xl={1}>
-                                                <p className="filter-and">até</p>
-                                            </Col>
-                                            <Col md={6} xl={5}>
-                                                <Form.Control type="date" className="to"></Form.Control>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                    <Col md={6} xl={2}>
-                                        <Button variant="primary" style={{float:"right"}} type="submit">Filtrar</Button>
-                                    </Col>
-                                </Row>
-                            </Form>
+                            <PatientFilter filter={filter} handleFilter={handleFilter} />
                         </Card.Body>
                     </Card>
                 </Col>
