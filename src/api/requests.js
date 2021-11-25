@@ -75,7 +75,6 @@ export const fetchPatient = async (documentNumber, from, to) => {
     console.log(`${API_SERVER}/patients/${documentNumber}`);
     return axios({method: "post", url: `${API_SERVER}/patients/${documentNumber}`, data: body})
     .then(response => {
-        console.log(response.data);
         return response.data;
     })
     .catch(error => {

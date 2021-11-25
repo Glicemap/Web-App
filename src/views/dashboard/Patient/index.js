@@ -4,8 +4,9 @@ import { useLocation } from "react-router-dom";
 import HeatCalendar from './chart/HeatCalendar';
 import BarDiscreteChart from './chart/BarDiscreteChart';
 import MeasureRow from './chart/MeasureRow';
-import PatientFilter from './patientFilter';
 import { fetchPatient } from '../../../api/requests';
+import { usePatientFilter } from '../../../contexts/PatientFilter';
+import { usePatientCode } from '../../../contexts/PatientCode';
 
 const PatientPage = () => {
     const[patient, setPatient] = useState({"name":"",
@@ -15,35 +16,38 @@ const PatientPage = () => {
                                            "high":[],
                                            "frequencys":[],
                                            "measures":[]});
-    const[filter, setFilter] = useState({"from":"", "to":""});
     const[state, setState] = useState(useLocation());
+
+    const { patientFilter, setPatientFilter } = usePatientFilter();
+    const { patientCode, setPatientCode } = usePatientCode();
 
     async function getPatient(documentNumber, from, to) {
         var patient = await fetchPatient(documentNumber, from, to);
+        console.log(patient)
         return patient;
     }
 
     useEffect(() => {
         async function fetch() {
-            const x = await getPatient(state.state.users.documentNumber, filter["from"], filter["to"]);
+            console.log(state)
+            const x = await getPatient(patientCode, patientFilter["from"], patientFilter["to"]);
             setPatient(x);
         }
         fetch()
-        console.log("useEffect")
-    }, [state, filter]);
+    }, [state]);
 
     useEffect(() => {
-        console.log("usePatient")
-    }, [patient])
+        if (state.state != undefined) {
+            setPatientCode(state.state.users.documentNumber)
+        }
+    }, [state]);
 
     function handleFilter(event) {
-        async function fetch() {
-            const x = await getPatient(state.state.users.documentNumber, event.target[0].value, event.target[1].value);
-            setPatient(x)
-        }
-        fetch()
-        console.log("filter")
-        //setFilter({"from":event.target[0].value, "to":event.target[1].value})
+        setPatientFilter({"from":event.target[0].value, "to":event.target[1].value})
+    }
+
+    function handleChange(key, value) {
+        setPatientFilter({key:value})
     }
 
     function handlePdf() {
@@ -75,7 +79,39 @@ const PatientPage = () => {
                             <Card.Title as="h5">{patient.name}</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <PatientFilter filter={filter} handleFilter={handleFilter} />
+                        <Form onSubmit={handleFilter}>
+                            <Row>
+                                <Col md={6} xl={10}>
+                                    <Row>
+                                        <Col md={6} xl={1}>
+                                            <p className="filter-and">De</p>
+                                        </Col>
+                                        <Col md={6} xl={5}>
+                                            <Form.Control 
+                                                type="date" 
+                                                className="from" 
+                                                value={patientFilter["from"]}
+                                                onChange={e => handleChange("fron", e.target.value)}
+                                            />
+                                        </Col>
+                                        <Col md={6} xl={1}>
+                                            <p className="filter-and">até</p>
+                                        </Col>
+                                        <Col md={6} xl={5}>
+                                            <Form.Control 
+                                                type="date" 
+                                                className="to" 
+                                                value={patientFilter["to"]}
+                                                onChange={e => handleChange("to", e.target.value)}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col md={6} xl={2}>
+                                    <Button variant="primary" style={{float:"right"}} type="submit">Filtrar</Button>
+                                </Col>
+                            </Row>
+                        </Form>
                         </Card.Body>
                     </Card>
                 </Col>

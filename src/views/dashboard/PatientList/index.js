@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
 import PatientRow from '../../../components/Patients/PatientRow';
 import { fetchPatients } from '../../../api/requests';
+import { useListFilter } from '../../../contexts/ListFilter';
 
 const DashDefault = () => {
-    const[list, setList] = useState([]);
-    const[filter, setFilter] = useState({"name":"", "from":"", "to":"", "frequency":""});
+    const [list, setList] = useState([]);
+    const { listFilter, setListFilter } = useListFilter();
 
-    async function getList() {
-        var fullList = await fetchPatients();
-        console.log(fullList.patients)
-        return fullList.patients;
+    async function getList(name, from, to, frequency) {
+        var fullList = await fetchPatients(); //TODO adiciona name, from, to, frequency
+        return fullList === undefined ? [] : fullList.patients;
     }
 
     useEffect(() => {
         async function fetch() {
-            const x = await getList(filter.name, filter.from, filter.to, filter.frequency);
+            const x = await getList(listFilter.name, listFilter.from, listFilter.to, listFilter.frequency);
             setList(x)
         }
         fetch()
@@ -33,7 +33,11 @@ const DashDefault = () => {
     });
 
     function handleFilter(event) {
-        setFilter({"name":event.target[0].value, "from":event.target[1].value, "to":event.target[2].value, "frequency":event.target[3].value})
+        setListFilter({"name":event.target[0].value, "from":event.target[1].value, "to":event.target[2].value, "frequency":event.target[3].value})
+    }
+
+    function handleChange(key, value) {
+        setListFilter({key:value})
     }
 
     return (
@@ -49,25 +53,42 @@ const DashDefault = () => {
                                 <Row>
                                     <Col md={6} xl={3}>
                                         <Form.Label>Nome</Form.Label>
-                                        <Form.Control type="text" placeholder="Digite o nome do paciente"></Form.Control>
+                                        <Form.Control 
+                                            type="text" 
+                                            placeholder="Digite o nome do paciente" 
+                                            value={listFilter.name} 
+                                            onChange={e => handleChange("name", e.target.value)}
+                                        />
                                     </Col>
                                     <Col md={6} xl={6}>
                                         <Form.Label>Cadastrado entre</Form.Label>
                                         <Row>
                                             <Col md={6} xl={5}>
-                                                <Form.Control type="date"></Form.Control>
+                                                <Form.Control 
+                                                    type="date" 
+                                                    value={listFilter.from}
+                                                    onChange={e => handleChange("from", e.target.value)}
+                                                />
                                             </Col>
                                             <Col md={6} xl={2}>
                                                 <p className="filter-and">e</p>
                                             </Col>
                                             <Col md={6} xl={5}>
-                                                <Form.Control type="date"></Form.Control>
+                                                <Form.Control 
+                                                    type="date" 
+                                                    value={listFilter.to}
+                                                    onChange={e => handleChange("to", e.target.value)}
+                                                />
                                             </Col>
                                         </Row>
                                     </Col>
                                     <Col md={6} xl={3}>
                                         <Form.Label>Frequência de Medições</Form.Label>
-                                        <Form.Control as="select">
+                                        <Form.Control 
+                                            as="select" 
+                                            value={listFilter.frequency}
+                                            onChange={e => handleChange("frequency", e.target.value)}
+                                        >
                                             <option value="">Nenhuma frequência</option>
                                             <option value="low">Baixa</option>
                                             <option value="medium">Média</option>

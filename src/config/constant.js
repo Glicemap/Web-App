@@ -1,7 +1,7 @@
 export const BASENAME = ''; // don't add '/' at end off BASENAME
 export const BASE_URL = '/patient-list';
 export const BASE_TITLE = ' | React Datta Able ';
-export const API_SERVER = 'http://localhost:8081/web';//'https://glicemap-backend.azurewebsites.net:443/web';
+export const API_SERVER = 'https://glicemap-backend.azurewebsites.net:443/web';
 
 export const CONFIG = {
     layout: 'vertical', // disable on free version
