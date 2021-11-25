@@ -21,26 +21,19 @@ const PatientPage = () => {
     const { patientFilter, setPatientFilter } = usePatientFilter();
     const { patientCode, setPatientCode } = usePatientCode();
 
-    async function getPatient(documentNumber, from, to) {
-        var patient = await fetchPatient(documentNumber, from, to);
-        console.log(patient)
-        return patient;
-    }
-
     useEffect(() => {
         async function fetch() {
-            console.log(state)
-            const x = await getPatient(patientCode, patientFilter["from"], patientFilter["to"]);
+            const x = await fetchPatient(patientCode, patientFilter["from"], patientFilter["to"]);
             setPatient(x);
         }
         fetch()
-    }, [state]);
+    }, [state, patientCode, patientFilter]);
 
     useEffect(() => {
-        if (state.state != undefined) {
+        if (state.state !== undefined) {
             setPatientCode(state.state.users.documentNumber)
         }
-    }, [state]);
+    }, [state, setPatientCode]);
 
     function handleFilter(event) {
         setPatientFilter({"from":event.target[0].value, "to":event.target[1].value})

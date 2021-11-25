@@ -9,7 +9,7 @@ const DashDefault = () => {
     const { listFilter, setListFilter } = useListFilter();
 
     async function getList(name, from, to, frequency) {
-        var fullList = await fetchPatients(); //TODO adiciona name, from, to, frequency
+        var fullList = await fetchPatients(name, from, to, frequency); //TODO adiciona name, from, to, frequency
         return fullList === undefined ? [] : fullList.patients;
     }
 
@@ -19,7 +19,7 @@ const DashDefault = () => {
             setList(x)
         }
         fetch()
-    }, [filter]);
+    }, [listFilter]);
 
     const patientsList = list.map(({ documentNumber, name, frequency, percentage }) => {
         return (
