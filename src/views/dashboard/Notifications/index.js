@@ -2,25 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Table, Card, Button } from 'react-bootstrap';
 import Checkbox from '../../../components/NotifTable/checkbox';
 import { fetchAllNotifications, readNotifications, deleteNotifications } from '../../../api/requests';
-//import deleteNotifications from '../../../api/requests';
 
 const Notifications = () => {
     const [isCheckAll, setIsCheckAll] = useState(false);
     const [isCheck, setIsCheck] = useState([]);
     const [list, setList] = useState([]);
 
-    async function getNotifications() {
-        var fullList = await fetchAllNotifications();
-        return fullList.data;
-    }
-
     useEffect(() => {
         async function fetch() {
-            const x = await getNotifications();
-            setList(x);
+            const x = await fetchAllNotifications();
+            setList(x.notifications);
         }
         fetch()
-    }, []);
+    }, [list]);
 
     const handleSelectAll = e => {
         setIsCheckAll(!isCheckAll);

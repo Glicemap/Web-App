@@ -10,7 +10,6 @@ const Notifications = () => {
     async function handleNewCode() {
         const newCode = await getNewCode();
         await setCode(newCode);
-        return;
     }
 
     return (

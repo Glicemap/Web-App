@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { fetchAllSettings } from '../../../api/requests';
+import { fetchAllSettings, updateSettings, updatePassword } from '../../../api/requests';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import useScriptRef from '../../../hooks/useScriptRef';
@@ -9,18 +9,13 @@ import { useHistory } from 'react-router-dom';
 const FormsElements = () => {
     const [validated, setValidated] = useState(false);
     const [settings, setSettings] = useState([{"name": "", "email": "", "crm": ""}]);
-    const [password, setPassword] = useState([]);
+    const [password, setPassword] = useState([{"oldPassword": "", "newPassword": ""}]);
     let history = useHistory();
     const scriptedRef = useScriptRef();
 
-    async function getSettings() {
-        var fullList = await fetchAllSettings();
-        return fullList.data;
-    }
-
     useEffect(() => {
         async function fetch() {
-            const x = await getSettings();
+            const x = await fetchAllSettings();
             setSettings(x)
         }
         fetch()
@@ -62,12 +57,12 @@ const FormsElements = () => {
         <React.Fragment>
             <Formik
                 initialValues={{
-                    name: settings[0]['name'],
-                    email: settings[0]['email'],
+                    name: settings['name'],
+                    email: settings['email'],
                     old_password: '',
                     password: '',
                     password_confirm: '',
-                    crm: settings[0]['crm'],
+                    crm: settings['CRM'],
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -83,7 +78,17 @@ const FormsElements = () => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        console.log("foi")
+                        const updateResult = await updateSettings(values.crm, values.name, values.email);
+                        if (!updateResult){
+                            throw new Error();
+                        }
+
+                        if(values.old_password !== '' && values.password !== '' && values.password_confirm !== ''){
+                            const updateResultPassword = await updatePassword(values.old_password, values.password);
+                            if (!updateResultPassword){
+                                alert("Senha não alterada, senha atual incorreta!")
+                            }
+                        }
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
@@ -143,7 +148,7 @@ const FormsElements = () => {
                                                         error={touched.crm && errors.crm}
                                                         label="CRM"
                                                         placeholder={values.crm}
-                                                        name="crm"
+                                                        name="CRM"
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
                                                         type="text"

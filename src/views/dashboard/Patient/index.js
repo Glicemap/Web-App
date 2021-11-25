@@ -29,12 +29,7 @@ const PatientPage = () => {
             setPatient(x);
         }
         fetch()
-        console.log("useEffect")
     }, [state, filter]);
-
-    useEffect(() => {
-        console.log("usePatient")
-    }, [patient])
 
     function handleFilter(event) {
         async function fetch() {

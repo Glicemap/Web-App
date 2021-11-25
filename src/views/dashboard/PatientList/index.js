@@ -7,8 +7,8 @@ const DashDefault = () => {
     const[list, setList] = useState([]);
     const[filter, setFilter] = useState({"name":"", "from":"", "to":"", "frequency":""});
 
-    async function getList() {
-        var fullList = await fetchPatients();
+    async function getList(name, from, to, frequency) {
+        var fullList = await fetchPatients(name, from, to, frequency);
         console.log(fullList.patients)
         return fullList.patients;
     }
@@ -19,7 +19,7 @@ const DashDefault = () => {
             setList(x)
         }
         fetch()
-    }, []);
+    }, [filter]);
 
     const patientsList = list.map(({ documentNumber, name, frequency, percentage }) => {
         return (
