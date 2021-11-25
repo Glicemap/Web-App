@@ -28,15 +28,15 @@ export const getNewCode = async () => {
 };
 
 export const fetchPatients = async (name, from, to, frequency) => {
-    from = typeof from === 'undefined' ? null : from.split('-');
+    from = typeof from === 'undefined' || from === '' ? null : from.split('-');
     from = from === null ? null : `${from[2]}-${from[1]}-${from[0]}`
     
-    to = typeof to === 'undefined' ? null : to.split('-');
+    to = typeof to === 'undefined' || to === '' ? null : to.split('-');
     to = to === null ? null : `${to[2]}-${to[1]}-${to[0]}`
     
-    name = typeof name === 'undefined' ? null : name;
+    name = typeof name === 'undefined' || name === '' ? null : name;
     
-    frequency = typeof frequency === 'undefined' ? null : frequency;
+    frequency = typeof frequency === 'undefined' || frequency === '' ? null : frequency;
     
     const headers = {
         "CRM": "123456"
@@ -72,7 +72,6 @@ export const fetchPatient = async (documentNumber, from, to) => {
         "to": to
     };
 
-    console.log(`${API_SERVER}/patients/${documentNumber}`);
     return axios({method: "post", url: `${API_SERVER}/patients/${documentNumber}`, data: body})
     .then(response => {
         return response.data;
@@ -83,80 +82,101 @@ export const fetchPatient = async (documentNumber, from, to) => {
 };
 
 export const fetchAllNotifications = () => {
-    return client.get('/get-notifications/');
+    const headers = {
+        'CRM': '123456'
+    };
+
+    return axios.get(`${API_SERVER}/notifications/`, { headers })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error)
+    });
 };
 
 export const readNotifications = (ids) => {
-    var params = new URLSearchParams();
-    for (let i = 0; i < ids.length; i++) {
-        params.append("id", ids[i]);
-    }
-    var request = {
-        params: params
+    var body = {
+        "ids": ids
     };
 
-    return client.post('/read-notifications/', request);
+    return axios({method: "put", url: `${API_SERVER}/notifications/`, data: body})
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
 };
 
 export const deleteNotifications = (ids) => {
-    var params = new URLSearchParams();
-    for (let i = 0; i < ids.length; i++) {
-        params.append("id", ids[i]);
-    }
-    var request = {
-        params: params
+    const body = {
+        "ids": ids
     };
 
-    return client.delete('/delete-notifications/', request);
+    return axios({method: "delete", url: `${API_SERVER}/notifications/`, data: body})
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
 };
 
 export const fetchAllSettings = (id) => {
-    id = typeof id === 'undefined' ? null : id;
+    const headers = {
+        'CRM': '123456'
+    };
 
-    var request = {
-        params: {
-            id: id
-        }
-    }
-
-    return client.get('/get-settings/', request);
+    return axios.get(`${API_SERVER}/settings/`, { headers })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error);
+    });
 };
 
-export const updateSettings = (id, email, name, crm) => {
-    id = typeof id === 'undefined' ? null : id;
+export const updateSettings = (CRM, name, email) => {
 
     name = typeof name === 'undefined' ? null : name;
 
     email = typeof email === 'undefined' ? null : email;
 
-    crm = typeof crm === 'undefined' ? null : crm;
+    CRM = typeof CRM === 'undefined' ? null : CRM;
 
-    var request = {
-        params: {
-            id: id,
-            name: name,
-            email: email,
-            crm: crm
-        }
+    var body = {
+        name: name,
+        email: email,
+        CRM: CRM
     }
 
-    return client.post('/update-settings/', request);
+    return axios({method: "put", url: `${API_SERVER}/settings/`, data: body})
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
 };
 
-export const updatePassword = (id, current, new_pass) => {
-    id = typeof id === 'undefined' ? null : id;
-
-    current = typeof current === 'undefined' ? null : current;
-
-    new_pass = typeof new_pass === 'undefined' ? null : new_pass;
-
-    var request = {
-        params: {
-            id: id,
-            current: current,
-            new_pass: new_pass
-        }
+export const updatePassword = (oldPassword, newPassword) => {
+    var body = {
+        oldPassword: oldPassword,
+        newPassword: newPassword
     }
 
-    return client.post('/update-password/', request);
+    const headers = {
+        'CRM': '123456'
+    };
+
+    console.log(body);
+    return axios({method: "put", url: `${API_SERVER}/password/`, headers: headers, data: body})
+    .then(response => {
+        console.log(response.data);
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
 };
