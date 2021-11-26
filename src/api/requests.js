@@ -28,11 +28,9 @@ export const getNewCode = async () => {
 };
 
 export const fetchPatients = async (name, from, to, frequency) => {
-    from = typeof from === 'undefined' || from === '' ? null : from.split('-');
-    from = from === null ? null : `${from[2]}-${from[1]}-${from[0]}`
+    from = typeof from === 'undefined' || from === '' ? null : from;
     
-    to = typeof to === 'undefined' || to === '' ? null : to.split('-');
-    to = to === null ? null : `${to[2]}-${to[1]}-${to[0]}`
+    to = typeof to === 'undefined' || to === '' ? null : to;
     
     name = typeof name === 'undefined' || name === '' ? null : name;
     
@@ -59,11 +57,9 @@ export const fetchPatients = async (name, from, to, frequency) => {
 };
 
 export const fetchPatient = async (documentNumber, from, to) => {
-    from = typeof from === 'undefined' || from === '' ? null : from.split('-');
-    from = from === null ? null : `${from[2]}-${from[1]}-${from[0]}`
+    from = typeof from === 'undefined' || from === '' ? null : from;
     
-    to = typeof to === 'undefined' || to === '' ? null : to.split('-');
-    to = to === null ? null : `${to[2]}-${to[1]}-${to[0]}`
+    to = typeof to === 'undefined' || to === '' ? null : to;
 
     documentNumber = typeof documentNumber === 'undefined' ? "" : documentNumber;
 
