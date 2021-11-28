@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import HeatCalendar from './chart/HeatCalendar';
 import BarDiscreteChart from './chart/BarDiscreteChart';
 import MeasureRow from './chart/MeasureRow';
-import { fetchPatient } from '../../../api/requests';
+import { fetchPatient, fetchDocument } from '../../../api/requests';
 import { usePatientFilter } from '../../../contexts/PatientFilter';
 import { usePatientCode } from '../../../contexts/PatientCode';
 
@@ -43,8 +43,8 @@ const PatientPage = () => {
         setPatientFilter({key:value})
     }
 
-    function handlePdf() {
-        
+    async function getReport() {
+        await fetchDocument(patientCode, patientFilter["from"], patientFilter["to"]);
     }
 
     const measuresList = patient.measures.map(({ date, measures }) => {
@@ -130,7 +130,7 @@ const PatientPage = () => {
                     </Card>
                 </Col>
                 <Col md={6} xl={12}>
-                    <Button variant="secondary" style={{padding:"10px", float:"right"}}>Exportar para PDF <i className="feather icon-upload" style={{margin:"0 0 0 10px"}}/></Button>
+                    <Button onClick={getReport} variant="secondary" style={{padding:"10px", float:"right"}}>Exportar para PDF <i className="feather icon-upload" style={{margin:"0 0 0 10px"}}/></Button>
                 </Col>
                 <Col md={6} xl={12}>
                 <Card className="Recent-Users Pacients-List">

@@ -77,6 +77,37 @@ export const fetchPatient = async (documentNumber, from, to) => {
     });
 };
 
+export const fetchDocument = async (document, from, to) => {
+    from = typeof from === 'undefined' || from === '' ? "2021-11-18" : from;
+    
+    to = typeof to === 'undefined' || to === '' ? "2021-11-28" : to;
+
+    var headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/pdf',
+        "documentNumber": document,
+        "dateBegin": from,
+        "dateEnd": to
+    };
+
+    var responseType = "arraybuffer";
+
+    return axios({method: "get", url: `${API_SERVER}/report/`, headers: headers, responseType: responseType})
+    .then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'relatorio.pdf');
+        console.log("teste")
+        console.log(link)
+        document.body.appendChild(link);
+        link.click()
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
+};
+
 export const fetchAllNotifications = () => {
     const headers = {
         'CRM': '123456'
@@ -166,7 +197,6 @@ export const updatePassword = (oldPassword, newPassword) => {
         'CRM': '123456'
     };
 
-    console.log(body);
     return axios({method: "put", url: `${API_SERVER}/password/`, headers: headers, data: body})
     .then(response => {
         console.log(response.data);
