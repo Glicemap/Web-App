@@ -1,6 +1,7 @@
 import axios from 'axios';
 import utilizeMock from './useMock';
 import { API_SERVER } from '../config/constant.js';
+import * as FileSaver from "file-saver";
 
 const mockRequests = false;
 
@@ -77,10 +78,19 @@ export const fetchPatient = async (documentNumber, from, to) => {
     });
 };
 
-export const fetchDocument = async (document, from, to) => {
+export const fetchDocument = async (document, from, to, name) => {
     from = typeof from === 'undefined' || from === '' ? "2021-11-18" : from;
     
     to = typeof to === 'undefined' || to === '' ? "2021-11-28" : to;
+
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    const currentDate = `${date}-${month<10?`0${month}`:`${month}`}-${year}`
+
+    const fileName = `Relatório-${name.replaceAll(" ", "-")}-${currentDate}`
 
     var headers = {
         'Content-Type': 'application/json',
@@ -94,14 +104,10 @@ export const fetchDocument = async (document, from, to) => {
 
     return axios({method: "get", url: `${API_SERVER}/report/`, headers: headers, responseType: responseType})
     .then(response => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'relatorio.pdf');
-        console.log("teste")
-        console.log(link)
-        document.body.appendChild(link);
-        link.click()
+        console.log(response.data)
+        
+        var blob = new Blob([response.data], {type: "application/pdf;charset=utf-8"});
+        FileSaver.saveAs(blob, fileName);
     })
     .catch(error => {
         console.log(error.response)

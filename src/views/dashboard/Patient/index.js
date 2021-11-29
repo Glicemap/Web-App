@@ -44,24 +44,31 @@ const PatientPage = () => {
     }
 
     async function getReport() {
-        await fetchDocument(patientCode, patientFilter["from"], patientFilter["to"]);
+        await fetchDocument(patientCode, patientFilter["from"], patientFilter["to"], patient.name);
     }
 
-    const measuresList = patient.measures.map(({ date, measures }) => {
-        return (
-            measures.map(({sugarLevel, insulin, situation, observations}) => {
-                return (
-                    <MeasureRow
-                        date = {date}
-                        sugarLevel = {sugarLevel}
-                        insulin = {insulin}
-                        situation = {situation}
-                        observations = {observations}
-                    />
-                );
-            })
-        );
-    });
+    var measuresList = "";
+
+    if (patient === undefined || patient.measures == []) {
+        measuresList = () => { return (<tr className="unread"><td className="col-xl-12"><h6 className="text-muted">Não foram encontradas medições</h6></td></tr>);}
+    } else {
+        measuresList = patient.measures.map(({ date, measures }) => {
+            return (
+                measures.map(({sugarLevel, insulin, situation, observations}) => {
+                    return (
+                        <MeasureRow
+                            date = {date}
+                            sugarLevel = {sugarLevel}
+                            insulin = {insulin}
+                            situation = {situation}
+                            observations = {observations}
+                        />
+                    );
+                })
+            );
+        });
+    }
+    
 
     return (
         <React.Fragment>
