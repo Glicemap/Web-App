@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 import navigation from '../../../menu-items';
 import { BASENAME } from '../../../config/constant';
@@ -14,21 +14,22 @@ const Breadcrumb = () => {
     const [item, setItem] = useState([]);
     const account = useSelector((state) => state.account);
     const dispatcher = useDispatch();
+    const { loginCode, setLoginCode } = useLoginCode();
 
     const handleLogout = () => {
-        axios
-            .post(API_SERVER + 'users/logout', {}, { headers: { Authorization: `${account.token}` } })
-            .then(function (response) {
-                // Force the LOGOUT
-                //if (response.data.success) {
-                dispatcher({ type: LOGOUT });
-                //} else {
-                //    console.log('response - ', response.data.msg);
-                //}
-            })
-            .catch(function (error) {
-                console.log('error - ', error);
-            });
+        try {
+            // Force the LOGOUT
+            //if (response.data.success) {
+            dispatcher({ type: LOGOUT });
+            setLoginCode("");
+
+            //} else {
+            //    console.log('response - ', response.data.msg);
+            //}
+        }
+        catch (error) {
+            console.log('error - ', error);
+        };
     };
 
     useEffect(() => {

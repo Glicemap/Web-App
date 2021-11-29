@@ -13,10 +13,12 @@ if (mockRequests) {
     utilizeMock(client);
 }
 
-export const getNewCode = async () => {
+export const getNewCode = async (crm) => {
+    
     const headers = {
-        'CRM': '123456'
+        'CRM': crm
     };
+    console.log(headers)
 
     return axios.get(`${API_SERVER}/new-code/`, { headers })
     .then(response => {
@@ -28,7 +30,7 @@ export const getNewCode = async () => {
     
 };
 
-export const fetchPatients = async (name, from, to, frequency) => {
+export const fetchPatients = async (name, from, to, frequency, crm) => {
     from = typeof from === 'undefined' || from === '' ? null : from;
     
     to = typeof to === 'undefined' || to === '' ? null : to;
@@ -38,7 +40,7 @@ export const fetchPatients = async (name, from, to, frequency) => {
     frequency = typeof frequency === 'undefined' || frequency === '' ? null : frequency;
     
     const headers = {
-        "CRM": "123456"
+        "CRM": crm
     };
 
     var body = {
@@ -79,9 +81,9 @@ export const fetchPatient = async (documentNumber, from, to) => {
 };
 
 export const fetchDocument = async (document, from, to, name) => {
-    from = typeof from === 'undefined' || from === '' ? "2021-11-18" : from;
+    from = typeof from === 'undefined' || from === '' ? null : from;
     
-    to = typeof to === 'undefined' || to === '' ? "2021-11-28" : to;
+    to = typeof to === 'undefined' || to === '' ? null : to;
 
     let newDate = new Date()
     let date = newDate.getDate();
@@ -102,6 +104,8 @@ export const fetchDocument = async (document, from, to, name) => {
 
     var responseType = "arraybuffer";
 
+    console.log(headers)
+
     return axios({method: "get", url: `${API_SERVER}/report/`, headers: headers, responseType: responseType})
     .then(response => {
         console.log(response.data)
@@ -114,9 +118,9 @@ export const fetchDocument = async (document, from, to, name) => {
     });
 };
 
-export const fetchAllNotifications = () => {
+export const fetchAllNotifications = (crm) => {
     const headers = {
-        'CRM': '123456'
+        'CRM': crm
     };
 
     return axios.get(`${API_SERVER}/notifications/`, { headers })
@@ -156,9 +160,9 @@ export const deleteNotifications = (ids) => {
     });
 };
 
-export const fetchAllSettings = (id) => {
+export const fetchAllSettings = (crm) => {
     const headers = {
-        'CRM': '123456'
+        'CRM': crm
     };
 
     return axios.get(`${API_SERVER}/settings/`, { headers })
@@ -170,7 +174,7 @@ export const fetchAllSettings = (id) => {
     });
 };
 
-export const updateSettings = (CRM, name, email) => {
+export const updateSettings = (CRM, name, email, password) => {
 
     name = typeof name === 'undefined' ? null : name;
 
@@ -178,10 +182,13 @@ export const updateSettings = (CRM, name, email) => {
 
     CRM = typeof CRM === 'undefined' ? null : CRM;
 
+    password = typeof password === 'undefined' ? null : password;
+
     var body = {
         name: name,
         email: email,
-        CRM: CRM
+        CRM: CRM,
+        password: password
     }
 
     return axios({method: "put", url: `${API_SERVER}/settings/`, data: body})
@@ -193,14 +200,14 @@ export const updateSettings = (CRM, name, email) => {
     });
 };
 
-export const updatePassword = (oldPassword, newPassword) => {
+export const updatePassword = (oldPassword, newPassword, crm) => {
     var body = {
         oldPassword: oldPassword,
         newPassword: newPassword
     }
 
     const headers = {
-        'CRM': '123456'
+        'CRM': crm
     };
 
     return axios({method: "put", url: `${API_SERVER}/password/`, headers: headers, data: body})

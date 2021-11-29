@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Row, Col, Button, Alert } from 'react-bootstrap';
 
@@ -8,10 +9,13 @@ import axios from 'axios';
 import useScriptRef from '../../../hooks/useScriptRef';
 import { API_SERVER } from './../../../config/constant';
 import { ACCOUNT_INITIALIZE } from './../../../store/actions';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 const RestLogin = ({ className, ...rest }) => {
     const dispatcher = useDispatch();
     const scriptedRef = useScriptRef();
+    let history = useHistory();
+    const { loginCode, setLoginCode } = useLoginCode();
 
     return (
         <React.Fragment>
@@ -27,34 +31,37 @@ const RestLogin = ({ className, ...rest }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        axios
-                            .post(API_SERVER + 'users/login', {
-                                password: values.password,
-                                email: values.email
-                            })
-                            .then(function (response) {
-                                if (response.data.success) {
-                                    console.log(response.data);
-                                    dispatcher({
-                                        type: ACCOUNT_INITIALIZE,
-                                        payload: { isLoggedIn: true, user: response.data.user, token: response.data.token }
-                                    });
-                                    if (scriptedRef.current) {
-                                        setStatus({ success: true });
-                                        setSubmitting(false);
-                                    }
-                                } else {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: response.data.msg });
+                        var body = {
+                            "login": values.email,
+                            "password": values.password
+                        }
+                        axios({method: "post", url: `${API_SERVER}/login/`, data: body})
+                        .then(function (response) {
+                            console.log(response)
+                            if (response.status == 200) {
+                                console.log(response.data);
+                                dispatcher({
+                                    type: ACCOUNT_INITIALIZE,
+                                    payload: { isLoggedIn: true, user: values.email, token: response.data }
+                                });
+                                if (scriptedRef.current) {
+                                    setStatus({ success: true });
                                     setSubmitting(false);
                                 }
-                            })
-                            .catch(function (error) {
-                                console.log(error);
+                                setLoginCode(response.data);
+                                history.push('/patient-list');
+                            } else {
                                 setStatus({ success: false });
-                                setErrors({ submit: error.response.data.msg });
+                                setErrors({ submit: response.data.msg });
                                 setSubmitting(false);
-                            });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            setStatus({ success: false });
+                            setErrors({ submit: error.response.data.msg });
+                            setSubmitting(false);
+                        });
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {

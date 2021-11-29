@@ -7,6 +7,7 @@ import MeasureRow from './chart/MeasureRow';
 import { fetchPatient, fetchDocument } from '../../../api/requests';
 import { usePatientFilter } from '../../../contexts/PatientFilter';
 import { usePatientCode } from '../../../contexts/PatientCode';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 const PatientPage = () => {
     const[patient, setPatient] = useState({"name":"",
@@ -20,6 +21,7 @@ const PatientPage = () => {
 
     const { patientFilter, setPatientFilter } = usePatientFilter();
     const { patientCode, setPatientCode } = usePatientCode();
+    const { loginCode, setLoginCode } = useLoginCode();
 
     useEffect(() => {
         async function fetch() {
@@ -44,7 +46,7 @@ const PatientPage = () => {
     }
 
     async function getReport() {
-        await fetchDocument(patientCode, patientFilter["from"], patientFilter["to"], patient.name);
+        await fetchDocument(patientCode, patientFilter["from"], patientFilter["to"], patient.name, loginCode);
     }
 
     var measuresList = "";

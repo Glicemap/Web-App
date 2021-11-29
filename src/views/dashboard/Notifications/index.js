@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Table, Card, Button } from 'react-bootstrap';
 import Checkbox from '../../../components/NotifTable/checkbox';
 import { fetchAllNotifications, readNotifications, deleteNotifications } from '../../../api/requests';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 const Notifications = () => {
     const [isCheckAll, setIsCheckAll] = useState(false);
     const [isCheck, setIsCheck] = useState([]);
     const [list, setList] = useState([]);
+    const { loginCode, setLoginCode } = useLoginCode();
 
     useEffect(() => {
         async function fetch() {
-            const x = await fetchAllNotifications();
+            const x = await fetchAllNotifications(loginCode);
             setList(x.notifications);
         }
         fetch()

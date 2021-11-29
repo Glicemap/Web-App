@@ -35,27 +35,28 @@ const RestRegister = ({ className, ...rest }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        axios
-                            .post(API_SERVER + 'users/register', {
-                                username: values.username,
-                                password: values.password,
-                                email: values.email,
-                                crm: values.crm
-                            })
-                            .then(function (response) {
-                                if (response.data.success) {
-                                    history.push('/auth/signin');
-                                } else {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: response.data.msg });
-                                    setSubmitting(false);
-                                }
-                            })
-                            .catch(function (error) {
+                        var body = {
+                            "name": values.username,
+                            "password": values.password,
+                            "email": values.email,
+                            "CRM": values.crm
+                        }
+                        axios({method: "post", url: `${API_SERVER}/sign-up/`, data: body})
+                        .then(function (response) {
+                            if (response.status == 200) {
+                                history.push('/auth/signin');
+                            } else {
                                 setStatus({ success: false });
-                                setErrors({ submit: error.response.data.msg });
+                                setErrors({ submit: response.data.msg });
                                 setSubmitting(false);
-                            });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error)
+                            setStatus({ success: false });
+                            setErrors({ submit: error.response.data.msg });
+                            setSubmitting(false);
+                        });
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {

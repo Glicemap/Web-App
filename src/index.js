@@ -15,6 +15,7 @@ import { store, persister } from './store';
 import ListFilterProvider from './contexts/ListFilter';
 import PatientFilterProvider from './contexts/PatientFilter';
 import PatientCodeProvider from './contexts/PatientCode';
+import LoginCodeProvider from './contexts/LoginCode';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -23,7 +24,9 @@ ReactDOM.render(
                 <ListFilterProvider>
                     <PatientFilterProvider>
                         <PatientCodeProvider>
-                            <App />
+                            <LoginCodeProvider>
+                                <App />
+                            </LoginCodeProvider>
                         </PatientCodeProvider>
                     </PatientFilterProvider>
                 </ListFilterProvider>

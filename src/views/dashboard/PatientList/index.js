@@ -3,13 +3,15 @@ import { Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
 import PatientRow from '../../../components/Patients/PatientRow';
 import { fetchPatients } from '../../../api/requests';
 import { useListFilter } from '../../../contexts/ListFilter';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 const DashDefault = () => {
     const [list, setList] = useState([]);
     const { listFilter, setListFilter } = useListFilter();
+    const { loginCode, setLoginCode } = useLoginCode();
 
     async function getList(name, from, to, frequency) {
-        var fullList = await fetchPatients(name, from, to, frequency); //TODO adiciona name, from, to, frequency
+        var fullList = await fetchPatients(name, from, to, frequency, loginCode);
         return fullList === undefined ? [] : fullList.patients;
     }
 

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { getNewCode } from '../../../api/requests';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 
 
 const Notifications = () => {
     const [code, setCode] = useState("Gerar Novo");
+    const { loginCode, setLoginCode } = useLoginCode();
 
     async function handleNewCode() {
-        const newCode = await getNewCode();
+        const newCode = await getNewCode(loginCode);
         await setCode(newCode);
     }
 

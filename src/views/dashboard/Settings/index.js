@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import useScriptRef from '../../../hooks/useScriptRef';
 import { useHistory } from 'react-router-dom';
+import { useLoginCode } from '../../../contexts/LoginCode';
 
 const FormsElements = () => {
     const [validated, setValidated] = useState(false);
@@ -12,10 +13,11 @@ const FormsElements = () => {
     const [password, setPassword] = useState([{"oldPassword": "", "newPassword": ""}]);
     let history = useHistory();
     const scriptedRef = useScriptRef();
+    const { loginCode, setLoginCode } = useLoginCode();
 
     useEffect(() => {
         async function fetch() {
-            const x = await fetchAllSettings();
+            const x = await fetchAllSettings(loginCode);
             setSettings(x)
         }
         fetch()
@@ -84,7 +86,7 @@ const FormsElements = () => {
                         }
 
                         if(values.old_password !== '' && values.password !== '' && values.password_confirm !== ''){
-                            const updateResultPassword = await updatePassword(values.old_password, values.password);
+                            const updateResultPassword = await updatePassword(values.old_password, values.password, loginCode);
                             if (!updateResultPassword){
                                 alert("Senha não alterada, senha atual incorreta!")
                             }
