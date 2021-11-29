@@ -81,9 +81,9 @@ export const fetchPatient = async (documentNumber, from, to) => {
 };
 
 export const fetchDocument = async (document, from, to, name) => {
-    from = typeof from === 'undefined' || from === '' ? null : from;
+    from = typeof from === 'undefined' || from === '' ? '' : from;
     
-    to = typeof to === 'undefined' || to === '' ? null : to;
+    to = typeof to === 'undefined' || to === '' ? '' : to;
 
     let newDate = new Date()
     let date = newDate.getDate();
