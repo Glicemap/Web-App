@@ -8,7 +8,7 @@ const Notifications = () => {
     const [isCheckAll, setIsCheckAll] = useState(false);
     const [isCheck, setIsCheck] = useState([]);
     const [list, setList] = useState([]);
-    const { loginCode, setLoginCode } = useLoginCode();
+    const { loginCode } = useLoginCode();
 
     useEffect(() => {
         async function fetch() {
@@ -16,7 +16,7 @@ const Notifications = () => {
             setList(x.notifications);
         }
         fetch()
-    }, [list]);
+    }, [list, loginCode]);
 
     const handleSelectAll = e => {
         setIsCheckAll(!isCheckAll);

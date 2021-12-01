@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import HeatCalendar from './chart/HeatCalendar';
 import BarDiscreteChart from './chart/BarDiscreteChart';
 import MeasureRow from './chart/MeasureRow';
@@ -17,11 +17,11 @@ const PatientPage = () => {
                                            "high":[],
                                            "frequencys":[],
                                            "measures":[]});
-    const[state, setState] = useState(useLocation());
+    const[state] = useState(useLocation());
 
     const { patientFilter, setPatientFilter } = usePatientFilter();
     const { patientCode, setPatientCode } = usePatientCode();
-    const { loginCode, setLoginCode } = useLoginCode();
+    const { loginCode } = useLoginCode();
 
     useEffect(() => {
         async function fetch() {
@@ -51,7 +51,7 @@ const PatientPage = () => {
 
     var measuresList = "";
 
-    if (patient === undefined || patient.measures == []) {
+    if (patient === undefined || patient.measures === []) {
         measuresList = () => { return (<tr className="unread"><td className="col-xl-12"><h6 className="text-muted">Não foram encontradas medições</h6></td></tr>);}
     } else {
         measuresList = patient.measures.map(({ date, measures }) => {

@@ -43,25 +43,25 @@ const RestRegister = ({ className, ...rest }) => {
                         }
                         axios({method: "post", url: `${API_SERVER}/sign-up/`, data: body})
                         .then(function (response) {
-                            if (response.status == 200) {
+                            if (response.status === 200) {
                                 history.push('/auth/signin');
                             } else {
                                 setStatus({ success: false });
-                                setErrors({ submit: response.data.msg });
+                                setErrors({ submit: "Ocorreu um erro, verifique os dados e tente novamente" });
                                 setSubmitting(false);
                             }
                         })
                         .catch(function (error) {
                             console.log(error)
                             setStatus({ success: false });
-                            setErrors({ submit: error.response.data.msg });
+                            setErrors({ submit: "Ocorreu um erro, verifique os dados e tente novamente" });
                             setSubmitting(false);
                         });
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
                             setStatus({ success: false });
-                            setErrors({ submit: err.message });
+                            setErrors({ submit: "Ocorreu um erro, verifique os dados e tente novamente" });
                             setSubmitting(false);
                         }
                     }

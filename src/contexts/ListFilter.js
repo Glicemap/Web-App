@@ -4,7 +4,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 const ListFilterContext = createContext();
 
 export default function ListFilterProvider({ children }) {
-    const [listFilter, setListFilter] = useLocalStorage("listFiler", {"name":"", "from":"", "to":"", "frequency":""});
+    const [listFilter, setListFilter] = useLocalStorage("listFilter", {"name":"", "from":"", "to":"", "frequency":""});
 
     return (
         <ListFilterContext.Provider value={{ listFilter, setListFilter }}>

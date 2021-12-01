@@ -15,7 +15,7 @@ const RestLogin = ({ className, ...rest }) => {
     const dispatcher = useDispatch();
     const scriptedRef = useScriptRef();
     let history = useHistory();
-    const { loginCode, setLoginCode } = useLoginCode();
+    const { setLoginCode } = useLoginCode();
 
     return (
         <React.Fragment>
@@ -38,7 +38,7 @@ const RestLogin = ({ className, ...rest }) => {
                         axios({method: "post", url: `${API_SERVER}/login/`, data: body})
                         .then(function (response) {
                             console.log(response)
-                            if (response.status == 200) {
+                            if (response.status === 200) {
                                 console.log(response.data);
                                 dispatcher({
                                     type: ACCOUNT_INITIALIZE,
@@ -52,14 +52,14 @@ const RestLogin = ({ className, ...rest }) => {
                                 history.push('/patient-list');
                             } else {
                                 setStatus({ success: false });
-                                setErrors({ submit: response.data.msg });
+                                setErrors({ submit: "Senha ou usuário incorretos" });
                                 setSubmitting(false);
                             }
                         })
                         .catch(function (error) {
                             console.log(error);
                             setStatus({ success: false });
-                            setErrors({ submit: error.response.data.msg });
+                            setErrors({ submit: "Senha ou usuário incorretos" });
                             setSubmitting(false);
                         });
                     } catch (err) {

@@ -8,7 +8,7 @@ import { useLoginCode } from '../../../contexts/LoginCode';
 const DashDefault = () => {
     const [list, setList] = useState([]);
     const { listFilter, setListFilter } = useListFilter();
-    const { loginCode, setLoginCode } = useLoginCode();
+    const { loginCode } = useLoginCode();
 
     async function getList(name, from, to, frequency) {
         var fullList = await fetchPatients(name, from, to, frequency, loginCode);

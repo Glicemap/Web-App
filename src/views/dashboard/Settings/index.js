@@ -4,16 +4,12 @@ import { fetchAllSettings, updateSettings, updatePassword } from '../../../api/r
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import useScriptRef from '../../../hooks/useScriptRef';
-import { useHistory } from 'react-router-dom';
 import { useLoginCode } from '../../../contexts/LoginCode';
 
 const FormsElements = () => {
-    const [validated, setValidated] = useState(false);
     const [settings, setSettings] = useState([{"name": "", "email": "", "crm": ""}]);
-    const [password, setPassword] = useState([{"oldPassword": "", "newPassword": ""}]);
-    let history = useHistory();
     const scriptedRef = useScriptRef();
-    const { loginCode, setLoginCode } = useLoginCode();
+    const { loginCode } = useLoginCode();
 
     useEffect(() => {
         async function fetch() {
@@ -21,39 +17,7 @@ const FormsElements = () => {
             setSettings(x)
         }
         fetch()
-    }, []);
-
-    function handleSubmit(event) {
-        const form = event.currentTarget;
-        console.log(event)
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setValidated(true);
-    }
-
-    function handleChange(event) {
-        let newSetting = {...settings};
-        newSetting[0][event.target.name] = event.target.value;
-        setSettings(newSetting);
-    }
-
-    function newPassword(event) {
-        let pass = {...password};
-        pass[event.target.name] = event.target.value;
-        setPassword(pass);
-    }
-
-    function checkPassword(event) {
-        let pass = {...password};
-        let valid = false;
-        if (pass['new'] === event.target.value) {
-            valid = true;
-        } else {
-            valid = false;
-        }
-    }
+    }, [loginCode]);
 
     return (
         <React.Fragment>
