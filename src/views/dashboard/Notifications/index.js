@@ -34,6 +34,27 @@ const Notifications = () => {
         }
     };
 
+    function findChecked() {
+        const notifs = document.getElementsByClassName("notifications-table")[0].children;
+        let checkedNotifs = [];
+        for (var i = 0; i < notifs.length; i++) {
+            if (notifs[i].children[0].children[0].checked) {
+                checkedNotifs.push(notifs[i].children[0].children[0].id);
+            };
+        };
+        return checkedNotifs;
+    };
+
+    function handleRead() {
+        let ids = findChecked();
+        readNotifications(ids);
+    };
+
+    function handleDelete() {
+        let ids = findChecked();
+        deleteNotifications(ids);
+    };
+
     const notifications = list.map(({ id, text, read }) => {
         const boldClass = read ? "col-xl-11" : "col-xl-11 notif-read"
         return (
@@ -59,8 +80,20 @@ const Notifications = () => {
                 <Card.Body>
                     <Row>
                         <Col xl={12}>
-                            <Button variant="secondary" style={{float: "left"}}>Marcar como lido{" "}<i className="feather icon-check" style={{margin:"0"}}/* onClick={console.log(deleteNotifications(["1"]))}*//></Button>
-                            <Button variant="secondary" style={{float: "left"}}>Excluir{" "}<i className="feather icon-trash" style={{margin:"0"}}/></Button>
+                            <Button 
+                                variant="secondary"
+                                style={{float: "left"}}
+                                onClick={handleRead}
+                            >
+                                Marcar como lido{" "}<i className="feather icon-check" style={{margin:"0"}}/>
+                            </Button>
+                            <Button 
+                                variant="secondary"
+                                style={{float: "left"}}
+                                onClick={handleDelete}
+                            >
+                                Excluir{" "}<i className="feather icon-trash" style={{margin:"0"}}/>
+                            </Button>
                         </Col>
                         <Col xl={12}>
                         <Table responsive>
@@ -81,7 +114,7 @@ const Notifications = () => {
                         </Col>
                         <Col xl={12}>
                             <Table responsive>
-                                <tbody>
+                                <tbody className="notifications-table">
                                     {notifications}
                                 </tbody>
                             </Table>
