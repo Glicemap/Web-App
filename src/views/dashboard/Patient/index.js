@@ -26,6 +26,7 @@ const PatientPage = () => {
     useEffect(() => {
         async function fetch() {
             const x = await fetchPatient(patientCode, patientFilter["from"], patientFilter["to"]);
+            console.log(x);
             setPatient(x);
         }
         fetch()

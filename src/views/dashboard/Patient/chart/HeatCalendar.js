@@ -14,13 +14,13 @@ const HeatCalendar = ({low, midlow, midhigh, high}) => {
         value={value}
         locale={"pt-BR"}
         tileClassName={({ date, view }) => {
-          if(low.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+          if(low.find(x=>x===moment(date).format("YYYY-MM-DD"))){
             return 'low'
-          } else if(midlow.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+          } else if(midlow.find(x=>x===moment(date).format("YYYY-MM-DD"))){
             return 'midlow'
-          } else if(midhigh.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+          } else if(midhigh.find(x=>x===moment(date).format("YYYY-MM-DD"))){
             return 'midhigh'
-          } else if(high.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+          } else if(high.find(x=>x===moment(date).format("YYYY-MM-DD"))){
             return 'high'
           }
         }}
