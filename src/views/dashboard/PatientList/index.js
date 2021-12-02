@@ -21,7 +21,7 @@ const DashDefault = () => {
             setList(x)
         }
         fetch()
-    }, [listFilter, list]);
+    }, [listFilter]);
 
     const patientsList = list.map(({ documentNumber, name, frequency, percentage }) => {
         return (
