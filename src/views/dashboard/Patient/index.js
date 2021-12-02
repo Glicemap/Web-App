@@ -78,7 +78,7 @@ const PatientPage = () => {
                 <Col md={6} xl={12}>
                     <Card>
                         <Card.Header>
-                            <Card.Title as="h5">{patient.name}</Card.Title>
+                            <Card.Title as="h5">{patient === undefined ? "Paciente" : patient.name}</Card.Title>
                         </Card.Header>
                         <Card.Body>
                         <Form onSubmit={handleFilter}>

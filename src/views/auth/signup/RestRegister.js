@@ -147,13 +147,6 @@ const RestRegister = ({ className, ...rest }) => {
                             </Col>
                         )}
 
-                        <div className="custom-control custom-checkbox  text-left mb-4 mt-2">
-                            <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                            <label className="custom-control-label" htmlFor="customCheck1">
-                                Salvar informações de login.
-                            </label>
-                        </div>
-
                         <Row>
                             <Col mt={2}>
                                 <Button
